@@ -6,7 +6,7 @@ const kelompokOKKRouter: Router = Router()
 
 kelompokOKKRouter.use(authenticateUser)
 
-kelompokOKKRouter.patch('/isi-absensi', authenticatePeserta, isiAbsensiMentoring)
+kelompokOKKRouter.patch('/isi-absensi-mentoring', authenticatePeserta, isiAbsensiMentoring)
 kelompokOKKRouter.get('/get-all-mentoring', authenticateMentor, getAllMentoringSession)
 kelompokOKKRouter.post('/create-mentoring', authenticateMentor, makeMentoringSession)
 
