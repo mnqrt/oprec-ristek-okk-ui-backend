@@ -1,0 +1,103 @@
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "Bdy",
+    "password": "akuBudy",
+    "loginAs": "Peserta",
+    "nama": "Budyyono",
+    "fakultas": "Fasilkom",
+    "jurusan": "Ilmu Komputer",
+    "angkatan": 2022,
+    "jalurMasuk": "SIMAK",
+    "noKelompok": 169
+}
+
+###
+
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "Shafa",
+    "password": "akuShafa",
+    "loginAs": "Mentor",
+    "nama": "Shafa Najmi",
+    "fakultas": "Fasilkom",
+    "jurusan": "Ilmu Komputer",
+    "angkatan": 2021,
+    "jalurMasuk": "SIMAK",
+    "noKelompok": 169
+}
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "Coda",
+    "password": "akuCoda",
+    "loginAs": "Mentor",
+    "nama": "Tsabit Code",
+    "fakultas": "Fasilkom",
+    "jurusan": "Ilmu Komputer",
+    "angkatan": 2022,
+    "jalurMasuk": "SIMAK",
+    "noKelompok": 180
+}
+
+###
+
+DELETE http://localhost:4000/auth/delete-all
+
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "Bdy",
+    "password": "akuBudy"
+}
+###
+GET http://localhost:4000/auth/get-all-mentor
+###
+GET http://localhost:4000/auth/get-all-peserta
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "Shafa",
+    "password": "akuShafa"
+}
+###
+DELETE http://localhost:4000/auth/delete-all-token
+###
+POST http://localhost:4000/mentoring/create-mentoring
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGRhMjYxYzlhZDUyMGEyMDdhYWJiMSIsImlhdCI6MTcwOTAyNDM2NCwiZXhwIjoxNzA5MDI1MjY0fQ.wJ96DflSnkgHlRPmHrvnNYRnUYW2n0snivM4DL7jNE4
+Content-Type: application/json
+
+{
+    "lokasiMentoring": "P2",
+    "passphraseAbsensi": "M2",
+    "materi": "Tes2"
+}
+###
+GET http://localhost:4000/mentoring/get-all-mentoring
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGRhMjYxYzlhZDUyMGEyMDdhYWJiMSIsImlhdCI6MTcwOTAyNDM2NCwiZXhwIjoxNzA5MDI1MjY0fQ.wJ96DflSnkgHlRPmHrvnNYRnUYW2n0snivM4DL7jNE4
+###
+DELETE http://localhost:4000/auth/delete-all-meeting
+###
+PATCH http://localhost:4000/mentoring/isi-absensi
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGRhMjVmYzlhZDUyMGEyMDdhYWJhYiIsImlhdCI6MTcwOTAyNDM5NSwiZXhwIjoxNzA5MDI1Mjk1fQ.kp8FhzJf8f_4KB6HdsmxsKLfymrHjJ1YNwp0el6iSKM
+Content-Type: application/json
+
+{
+    "mentoringId": "65dda474ca311b18ddd5097a",
+    "passphraseAbsensi": "M2"
+}
+
+//mentoring id: 65dd92005febdc2eb00502ea
+//65dda27fc9ad520a207aabbf
+//65dda3407782ced044b806c8
+//65dda3c10b618a807762a633
+//65dda474ca311b18ddd5097a
