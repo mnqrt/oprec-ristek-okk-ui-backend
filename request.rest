@@ -95,9 +95,81 @@ Content-Type: application/json
     "mentoringId": "65dda474ca311b18ddd5097a",
     "passphraseAbsensi": "M2"
 }
+###
 
-//mentoring id: 65dd92005febdc2eb00502ea
-//65dda27fc9ad520a207aabbf
-//65dda3407782ced044b806c8
-//65dda3c10b618a807762a633
-//65dda474ca311b18ddd5097a
+
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "addr",
+    "password": "akuAddr",
+    "loginAs": "Panitia",
+    "nama": "Adrian Hamzah",
+    "fakultas": "Fasilkom",
+    "jurusan": "Sistem Informasi",
+    "angkatan": 2022,
+    "tipePengurus": "PI",
+    "bidangTerkait": "Koordinator Mentor",
+    "jabatan": "Penanggung Jawab"
+}
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "cia",
+    "password": "akuCia",
+    "loginAs": "Panitia",
+    "nama": "Cia123",
+    "fakultas": "Fasilkom",
+    "jurusan": "Sistem Informasi",
+    "angkatan": 2023,
+    "tipePengurus": "PI",
+    "bidangTerkait": "Koordinator Mentor",
+    "jabatan": "Wakil Penanggung Jawab"
+}
+###
+GET http://localhost:4000/auth/get-all-panitia
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "addr",
+    "password": "akuAddr"
+}
+###
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDM0MjNlMDU4YjQ1ZDMzNTVjMSIsImlhdCI6MTcwOTA1MzA1NCwiZXhwIjoxNzA5MDUzOTU0fQ.9mZn2y92qqgrw4s7osSKMgdWHjbxu5Yl1LHk5NJysfI
+POST http://localhost:4000/rapat/create-rapat
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDM0MjNlMDU4YjQ1ZDMzNTVjMSIsImlhdCI6MTcwOTA1MzA1NCwiZXhwIjoxNzA5MDUzOTU0fQ.9mZn2y92qqgrw4s7osSKMgdWHjbxu5Yl1LHk5NJysfI
+Content-Type: application/json
+
+{
+    "lokasiRapat": "Balgebun",
+    "kesimpulanRapat": "Coblos No 5",
+    "passphraseAbsensi": "FirstRapat"
+}
+###
+GET http://localhost:4000/rapat/get-all-rapat
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDM0MjNlMDU4YjQ1ZDMzNTVjMSIsImlhdCI6MTcwOTA1MzA1NCwiZXhwIjoxNzA5MDUzOTU0fQ.9mZn2y92qqgrw4s7osSKMgdWHjbxu5Yl1LHk5NJysfI
+//65de150d23e058b45d3355d8
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "cia",
+    "password": "akuCia"
+}
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTA1MzI2MiwiZXhwIjoxNzA5MDU0MTYyfQ.y-mqyFfzQ04VgtProSmsfBomXI4ZPZiEJCSPnUg5r34
+###
+PATCH http://localhost:4000/rapat/isi-absensi-rapat
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTA1MzI2MiwiZXhwIjoxNzA5MDU0MTYyfQ.y-mqyFfzQ04VgtProSmsfBomXI4ZPZiEJCSPnUg5r34
+Content-Type: application/json
+
+{
+    "rapatId": "65de150d23e058b45d3355d8",
+    "passphraseAbsensi": "FirstRapat"
+}

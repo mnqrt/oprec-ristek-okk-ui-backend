@@ -14,8 +14,8 @@ const makeRapatSession = async (req: RequestWithPanitia, res: Response) => {
         const mahasiswaFromIdPanitia = await MahasiswaModel.findById(req.panitia.mahasiswaId)
         if (! mahasiswaFromIdPanitia) return res.sendStatus(403)
 
-        const listPeserta = [mahasiswaFromIdPanitia._id]
-        const meeting = new MeetingModel({ tempat: lokasiRapat, listPeserta, passphraseAbsensi })
+        const listHadir = [mahasiswaFromIdPanitia._id]
+        const meeting = new MeetingModel({ tempat: lokasiRapat, listHadir, passphraseAbsensi })
         await meeting.save()
 
         const rapatOKK = new RapatOKKModel({ meetingId: meeting._id, kesimpulanRapat })
@@ -41,7 +41,7 @@ const getAllRapatSession = async (req: RequestWithPanitia, res: Response) => {
 
 const isiAbsensiRapat = async (req: RequestWithPanitia, res: Response) => {
     const { rapatId, passphraseAbsensi }: IsiAbsensiRapatRequestBody = req.body as IsiAbsensiRapatRequestBody
-    console.log(req.peserta)
+    console.log(req.panitia)
     try {
         if (! rapatId || ! passphraseAbsensi) return res.sendStatus(404)
         const rapat = await RapatOKKModel.findById(rapatId)
@@ -50,8 +50,8 @@ const isiAbsensiRapat = async (req: RequestWithPanitia, res: Response) => {
         if (! meeting) return res.sendStatus(403)
         if(meeting.passphraseAbsensi !== passphraseAbsensi) return res.sendStatus(503)
         
-        if (meeting.listHadir.includes(req.peserta.userId)) return res.send("KAMU UDAH ABSENSI, NGAPAIN LAGI?")
-        meeting.listHadir.push(req.peserta.userId)
+        if (meeting.listHadir.includes(req.panitia.userId)) return res.send("KAMU UDAH ABSENSI, NGAPAIN LAGI?")
+        meeting.listHadir.push(req.panitia.userId)
         await meeting.save()
         res.status(201).json(meeting)
     }
@@ -61,4 +61,4 @@ const isiAbsensiRapat = async (req: RequestWithPanitia, res: Response) => {
     }
 }
 
-export { makeRapatSession, getAllRapatSession }
+export { makeRapatSession, getAllRapatSession, isiAbsensiRapat }
