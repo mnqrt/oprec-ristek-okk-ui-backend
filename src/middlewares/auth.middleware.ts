@@ -12,6 +12,10 @@ import PesertaOKKModel from "../models/pesertaOKK.model";
 import RequestWithMentor from "../interfaces/RequestInterfaces/requestWithMentor.model";
 import MentorOKKModel from "../models/mentorOKK.model";
 import RequestWithMahasiswa from "../interfaces/RequestInterfaces/requestWithMahasiswa.interface";
+import RequestWithSponsor from "../interfaces/RequestInterfaces/requestWithSponsor.interface";
+import SponsorOKKModel from "../models/sponsorOKK.model";
+import PembicaraOKKModel from "../models/pembicaraOKK.model";
+import RequestWithPembicara from "../interfaces/RequestInterfaces/requestWithPembicara.interface";
 dotenv.config();
 
 interface Id {
@@ -97,4 +101,32 @@ async function authenticateMentor (req: RequestWithMentor, res: Response, next: 
     return res.sendStatus(403)
 }
 
-export { authenticateUser, authenticateMentor, authenticatePanitia, authenticatePeserta }
+async function authenticateSponsor (req: RequestWithSponsor, res: Response, next: NextFunction) {
+    const curUser: User = req.user
+    if (curUser.role === "Sponsor") {
+        const sponsorFromUser = await SponsorOKKModel.findOne({ userId: curUser._id })
+        if (! sponsorFromUser) {
+            return res.sendStatus(404)
+        }
+        req.sponsor = sponsorFromUser
+        next()
+        return
+    }
+    return res.sendStatus(403)
+}
+
+async function authenticatePembicara (req: RequestWithPembicara, res: Response, next: NextFunction) {
+    const curUser: User = req.user
+    if (curUser.role === "Pembicara") {
+        const pembicaraFromUser = await PembicaraOKKModel.findOne({ userId: curUser._id })
+        if (! pembicaraFromUser) {
+            return res.sendStatus(404)
+        }
+        req.pembicara = pembicaraFromUser
+        next()
+        return
+    }
+    return res.sendStatus(403)
+}
+
+export { authenticateUser, authenticateMentor, authenticatePanitia, authenticatePeserta, authenticateSponsor, authenticatePembicara }

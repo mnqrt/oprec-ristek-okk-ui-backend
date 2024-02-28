@@ -11,6 +11,8 @@ interface RegisterRequestBody {
     tipePengurus: string,
     bidangTerkait?: string, 
     jabatan?: string,
+    namaSponsor?: string,
+    namaPembicara?: string
 }
 
 export default RegisterRequestBody

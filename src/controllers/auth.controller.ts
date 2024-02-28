@@ -18,6 +18,12 @@ import PanitiaOKK from '../interfaces/panitiaOKK.interface'
 import MeetingModel from '../models/meeting.model'
 import RapatOKKModel from '../models/rapatOKK.model'
 import MentoringOKKModel from '../models/mentoringOKK.model'
+import SponsorOKKModel from '../models/sponsorOKK.model'
+import PembicaraOKKModel from '../models/pembicaraOKK.model'
+import { SponsorOKK } from '../interfaces/sponsorOKK.interface'
+import AcaraOKKModel from '../models/acaraOKK.model'
+import ProposalSponsorOKKModel from '../models/proposalSponsorOKK.model'
+import ProposalPembicaraOKKModel from '../models/proposalPembicaraOKK.model'
 
 dotenv.config()
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
@@ -42,7 +48,9 @@ const register = async (req: Request, res: Response) => {
                 jalurMasuk, 
                 tipePengurus, 
                 bidangTerkait, 
-                jabatan }: RegisterRequestBody = req.body as RegisterRequestBody
+                jabatan,
+                namaSponsor,
+                namaPembicara }: RegisterRequestBody = req.body as RegisterRequestBody
 
         if (! ["Peserta", "Mentor", "Panitia", "Sponsor", "Pembicara"].includes(loginAs)) {
             return res.status(404).json({ message: "Role Yang Dipilih Tidak Valid." })
@@ -84,7 +92,20 @@ const register = async (req: Request, res: Response) => {
             await newUser.save()
             return res.sendStatus(201)
         }
-        //BELUM HANDLE SPONSOR DAN PEMBICARA
+        if (loginAs === "Sponsor") {
+            if (! namaSponsor) return res.sendStatus(404)
+            const sponsor = new SponsorOKKModel({ userId, namaSponsor, listAcaraDisponsori: [] })
+            await sponsor.save()
+            await newUser.save()
+            return res.sendStatus(201)
+        }
+        if (loginAs === "Pembicara") {
+            if (! namaPembicara) return res.sendStatus(404)
+            const pembicara = new PembicaraOKKModel({ userId, namaPembicara, listAcaraDiisi: [] })
+            await pembicara.save()
+            await newUser.save()
+            return res.sendStatus(201)
+        }
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -96,6 +117,7 @@ const login = async (req: Request, res: Response) => {
     const { username, password }: LoginRequestBody = req.body as LoginRequestBody
     try {
         const user = await UserModel.findOne({ username })
+        console.log(user)
         if (! user) return res.sendStatus(404)
         if (! (await bcrypt.compare(password, user.password))) return res.sendStatus(401)
 
@@ -142,6 +164,28 @@ const getAllPeserta = async (req: Request, res: Response) => {
             return { dataMahasiswa: mahasiswaFromPeserta, dataMentor: peserta}
         }))
         return res.status(200).json(allPesertaWithMoreInfo)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+const getAllSponsor = async (req: Request, res: Response) => {
+    try {
+        const allSponsor = await SponsorOKKModel.find({})
+        return res.status(200).json(allSponsor)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+const getAllPembicara = async (req: Request, res: Response) => {
+    try {
+        const allPembicara = await PembicaraOKKModel.find({})
+        return res.status(200).json(allPembicara)
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -204,6 +248,30 @@ const deleteAllMeeting = async (req: Request, res: Response) => { //ONLY USE THI
     }
 }
 
+const deleteAllSponsor_Pembicara_Acara_Proposal = async (req: Request, res: Response) => { //ONLY USE THIS WHEN WRONG DATA OCCUR
+    try {
+        await SponsorOKKModel.deleteMany({})
+        await PembicaraOKKModel.deleteMany({})
+        await AcaraOKKModel.deleteMany({})
+        await ProposalSponsorOKKModel.deleteMany({})
+        await ProposalPembicaraOKKModel.deleteMany({})
+        await MahasiswaModel.deleteMany({})
+        await MeetingModel.deleteMany({})
+
+        await MentorOKKModel.deleteMany({})
+        await PanitiaOKKModel.deleteMany({})
+        await PesertaOKKModel.deleteMany({})
+        
+        await RapatOKKModel.deleteMany({})
+        await UserModel.deleteMany({})
+        res.sendStatus(204)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
 const generateToken = async (req: Request, res: Response) => {
     const refreshToken = req.cookies['REFRESH_TOKEN_USER']
     if(! refreshToken) return res.sendStatus(401)
@@ -229,4 +297,4 @@ const generateToken = async (req: Request, res: Response) => {
     }
 }
 
-export { register, login, deleteAll, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting }
+export { register, login, deleteAll, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAllSponsor_Pembicara_Acara_Proposal }
