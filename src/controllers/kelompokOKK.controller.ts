@@ -7,7 +7,7 @@ import IsiAbsensiMentoringRequestBody from "../interfaces/RequestInterfaces/isiA
 import MakeMentoringRequestBody from "../interfaces/RequestInterfaces/makeMentoringRequestBody.interface";
 import RequestWithMentor from "../interfaces/RequestInterfaces/requestWithMentor.model";
 import RequestWithPeserta from "../interfaces/RequestInterfaces/requestWithPeserta.interface";
-import MahasiswaModel from "../models/mahasiswa.models";
+import MahasiswaModel from "../models/mahasiswa.model";
 import MeetingModel from "../models/meeting.model";
 import MentoringOKKModel from "../models/mentoringOKK.model";
 

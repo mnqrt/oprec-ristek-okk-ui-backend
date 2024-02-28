@@ -3,7 +3,7 @@ import { Response } from "express";
 import IsiAbsensiRapatRequestBody from "../interfaces/RequestInterfaces/IsiAbsensiRapatRequestBody.interface";
 import MakeRapatRequestBody from "../interfaces/RequestInterfaces/makeRapatRequestBody.interface";
 import RequestWithPanitia from "../interfaces/RequestInterfaces/requestWithPanitia.interface";
-import MahasiswaModel from "../models/mahasiswa.models";
+import MahasiswaModel from "../models/mahasiswa.model";
 import MeetingModel from "../models/meeting.model";
 import RapatOKKModel from "../models/rapatOKK.model";
 
