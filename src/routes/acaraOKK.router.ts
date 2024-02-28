@@ -6,7 +6,7 @@ const acaraRouter: Router = Router()
 
 acaraRouter.use(authenticateUser, authenticatePanitia)
 
-acaraRouter.post('/make-acara', makeAcara)
+acaraRouter.post('/create-acara', makeAcara)
 acaraRouter.get('/get-all-acara', getAllAcara)
 
 export default acaraRouter

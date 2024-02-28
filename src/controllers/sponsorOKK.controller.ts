@@ -5,6 +5,7 @@ import RequestWithSponsor from "../interfaces/RequestInterfaces/requestWithSpons
 import ResponDariSponsorRequestBody from "../interfaces/RequestInterfaces/responDariSponsorRequestBody.interface";
 import AcaraOKKModel from "../models/acaraOKK.model";
 import ProposalSponsorOKKModel from "../models/proposalSponsorOKK.model";
+import SponsorOKKModel from "../models/sponsorOKK.model";
 
 const makeProposalSponsor = async (req: RequestWithPanitia, res: Response) => {
     const { acaraId, sponsorId }: makeProposalSponsorRequestBody = req.body as makeProposalSponsorRequestBody
@@ -27,6 +28,7 @@ const responDariSponsor = async (req: RequestWithSponsor, res: Response) => {
         if (statusProposal !== "Ditolak" && ! paket) return res.status(400).send("jika menerima proposal, paket tidak boleh null!")
         const proposalSponsorOKK = await ProposalSponsorOKKModel.findById(proposalSponsorId)
         if (! proposalSponsorOKK) return res.status(400).send(`Tidak ada proposal sponsor dengan if ${proposalSponsorId}`)
+        if (proposalSponsorOKK.statusProposal !== "Menunggu Konfirmasi Sponsor") return res.status(400).send("Request tidak sesuai dengan status Proposal.")
 
         proposalSponsorOKK.statusProposal = statusProposal
         proposalSponsorOKK.paket = paket
@@ -34,7 +36,7 @@ const responDariSponsor = async (req: RequestWithSponsor, res: Response) => {
 
         if (statusProposal !== "Ditolak") {
             const acaraFromProposalId = await AcaraOKKModel.findById(proposalSponsorOKK.acaraId)
-            acaraFromProposalId?.listSponsorBesertaPaket.push({})
+            acaraFromProposalId?.listSponsorBesertaPaket.push({ sponsor: proposalSponsorOKK.sponsorId, paket })
             await acaraFromProposalId?.save()
         }
 

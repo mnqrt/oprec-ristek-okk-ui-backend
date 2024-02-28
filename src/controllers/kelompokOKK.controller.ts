@@ -25,8 +25,6 @@ const makeMentoringSession = async (req: RequestWithMentor, res: Response) => {
         const mentoringOKK = new MentoringOKKModel({ meetingId: meeting._id, noKelompokOKK: req.mentor.noKelompok, materi })
         await mentoringOKK.save()
 
-        console.log(meeting.listHadir)
-
         return res.sendStatus(201)
     }
     catch (error: unknown) {
@@ -47,7 +45,6 @@ const getAllMentoringSession = async (req: RequestWithMentor, res: Response) => 
 
 const isiAbsensiMentoring = async (req: RequestWithPeserta, res: Response) => {
     const { mentoringId, passphraseAbsensi }: IsiAbsensiMentoringRequestBody = req.body as IsiAbsensiMentoringRequestBody
-    console.log(req.peserta)
     try {
         if (! mentoringId || ! passphraseAbsensi) return res.sendStatus(404)
         const mentoring = await MentoringOKKModel.findById(mentoringId)
@@ -55,8 +52,6 @@ const isiAbsensiMentoring = async (req: RequestWithPeserta, res: Response) => {
         const meeting = await MeetingModel.findById(mentoring.meetingId)
         if (! meeting) return res.sendStatus(403)
         if(meeting.passphraseAbsensi !== passphraseAbsensi) return res.sendStatus(503)
-
-        console.log("BEFORE :"+meeting)
         
         if (meeting.listHadir.includes(req.peserta.userId)) return res.send("KAMU UDAH ABSENSI, NGAPAIN LAGI?")
         meeting.listHadir.push(req.peserta.userId)

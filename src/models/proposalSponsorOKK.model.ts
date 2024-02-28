@@ -5,14 +5,12 @@ const ProposalSponsorOKKSchema = new mongoose.Schema({
     sponsorId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "SponsorOKK",
-        require: true,
-        unique: true
+        require: true
     },
     acaraId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "AcaraOKK",
-        require: true,
-        unique: true
+        require: true
     },
     
     paket: {

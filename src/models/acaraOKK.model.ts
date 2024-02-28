@@ -36,7 +36,7 @@ const AcaraOKKSchema = new mongoose.Schema({
             enum: ["Silver", "Gold", "Platinum"]
         }
     }],
-    listPembicaraBesertaPaket: [{
+    listPembicaraBesertaMateri: [{
         pembicaraAcara: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "PembicaraOKKModel"

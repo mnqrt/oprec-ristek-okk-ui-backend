@@ -173,3 +173,180 @@ Content-Type: application/json
     "rapatId": "65de150d23e058b45d3355d8",
     "passphraseAbsensi": "FirstRapat"
 }
+
+###
+POST http://localhost:4000/acara/create-acara
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjQwNiwiZXhwIjoxNzA5MTMzMzA2fQ.KZWYoHOSoAhvwApx9efUmjQnL77VP-W4odjaxR77--M
+Content-Type: application/json
+
+{
+    "namaAcara": "Pembukaan OKK 2024 Hore",
+    "jadwalAcara": "2024-09-20"
+}
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNTc1OCwiZXhwIjoxNzA5MTA2NjU4fQ.yo24S3_DJ7r2F8PB-C6gWCB6bfWaABkHnwwj1OXwvgU
+//acaraId: 65dee269019b79aefbf22acf
+###
+GET http://localhost:4000/acara/get-all-acara
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNTc1OCwiZXhwIjoxNzA5MTA2NjU4fQ.yo24S3_DJ7r2F8PB-C6gWCB6bfWaABkHnwwj1OXwvgU
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "aqua",
+    "password": "akuAqua",
+    "loginAs": "Sponsor",
+    "namaSponsor": "Aqua enak"
+}
+###
+GET http://localhost:4000/auth/get-all-pembicara
+//sponsorId: 65dee318019b79aefbf22ad8
+//proposalSponsorId: 65dee4d685e9a541da7bb7b8
+###
+POST http://localhost:4000/sponsor/make-proposal-sponsor
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNTc1OCwiZXhwIjoxNzA5MTA2NjU4fQ.yo24S3_DJ7r2F8PB-C6gWCB6bfWaABkHnwwj1OXwvgU
+Content-Type: application/json
+
+{
+    "acaraId": "65dee269019b79aefbf22acf",
+    "sponsorId": "65dee318019b79aefbf22ad8"
+}
+###
+GET http://localhost:4000/sponsor/get-all-proposal-pembicara
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNjg5NiwiZXhwIjoxNzA5MTA3Nzk2fQ.ld2SEGS2yDJWQM0VyRtA1-CMcB7jvyrNrXSNbVVoOKo
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "aqua",
+    "password": "akuAqua"
+}
+###
+PATCH http://localhost:4000/sponsor/respon-proposal
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGVlNWYyMjI2NTUzM2E1M2RhZTZkMSIsImlhdCI6MTcwOTEwNzAzMywiZXhwIjoxNzA5MTA3OTMzfQ.u1Tr-dmGKJ1ZMEgx-Pmi_dvKQs_VZNBfC6G0X_xUsD4
+Content-Type: application/json
+
+{
+    "proposalSponsorId": "65dee4d685e9a541da7bb7b8",
+    "statusProposal": "Diterima: Platinum",
+    "paket": "Platinum"
+}
+
+###
+DELETE http://localhost:4000/auth/delete-all-sponsor-pembicara-acara-proposal
+
+# {
+# 	"namaAcara": "Pembukaan OKK UI 2024",
+# 	"jadwalAcara": "2024-09-20T00:00:00.000Z",
+# 	"_id": "65df401b2b9b018e52fa0a97",
+# 	"listSponsorBesertaPaket": [],
+# 	"listPembicaraBesertaPaket": [],
+# 	"__v": 0
+# }
+# id sponsor: 65df3f716d4165ae70d4c0f6
+# {
+# 	"sponsorId": "65df3f716d4165ae70d4c0f6",
+# 	"acaraId": "65df401b2b9b018e52fa0a97",
+# 	"statusProposal": "Menunggu Konfirmasi Sponsor",
+# 	"_id": "65df40ec655e141792154d8a",
+# 	"__v": 0
+# }
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "andy",
+    "password": "akuAndy",
+    "loginAs": "Pembicara",
+    "namaPembicara": "Andy Shihab"
+}
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "username": "najwa",
+    "password": "akuNajwa",
+    "loginAs": "Pembicara",
+    "namaPembicara": "Najwa Shihab"
+}
+###
+GET http://localhost:4000/auth/get-all-pembicara
+# {
+# 	"pembicaraId": "65df4422cc69275f58dbce7e",
+# 	"acaraId": "65df401b2b9b018e52fa0a97",
+# 	"statusProposal": "Menunggu Konfirmasi Pembicara",
+# 	"_id": "65df45a51ca49167b88a83ff",
+# 	"__v": 0
+# }
+
+
+
+# acaraId: 65df4a9c158c2da7c8f2e79e
+
+# {
+# 	"_id": "65df4a9c158c2da7c8f2e79e",
+# 	"namaAcara": "Pembukaan OKK 2024 Hore",
+# 	"jadwalAcara": "2024-09-20T00:00:00.000Z",
+# 	"listSponsorBesertaPaket": [],
+# 	"listPembicaraBesertaPaket": [],
+# 	"__v": 0
+# },
+
+
+###
+POST http://localhost:4000/pembicara/create-proposal-pembicara 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjU0MSwiZXhwIjoxNzA5MTMzNDQxfQ.Ni7hswmd-wgpzue9FO26nygXf_WYxRBk5a8v9RHtxpg
+Content-Type: application/json
+
+{
+	"acaraId": "65df4a9c158c2da7c8f2e79e",
+	"pembicaraId": "65df4aca158c2da7c8f2e7a2"
+}
+###
+GET http://localhost:4000/pembicara/get-all-proposal-pembicara
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjU0MSwiZXhwIjoxNzA5MTMzNDQxfQ.Ni7hswmd-wgpzue9FO26nygXf_WYxRBk5a8v9RHtxpg
+#65df4bb5158c2da7c8f2e7b7
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "andy",
+    "password": "akuAndy"
+}
+###
+POST http://localhost:4000/pembicara/create-proposal-pembicara 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjU0MSwiZXhwIjoxNzA5MTMzNDQxfQ.Ni7hswmd-wgpzue9FO26nygXf_WYxRBk5a8v9RHtxpg
+###
+PATCH http://localhost:4000/pembicara/respon-proposal-pembicara
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTNmMTU4YzJkYTdjOGYyZTc5MyIsImlhdCI6MTcwOTEzMzQ1MiwiZXhwIjoxNzA5MTM0MzUyfQ.R-XcNtXOC7TxxWhdqYOc9O0p2S0uzbASI5ojIVxhyLo
+Content-Type: application/json
+
+{
+    "proposalPembicaraId": "65df4bb5158c2da7c8f2e7b7",
+    "statusProposal": "Diterima Pembicara (Menunggu Konfirmasi Panitia)",
+    "materi": "Ayam"
+}
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "cia",
+    "password": "akuCia"
+}
+###
+PATCH http://localhost:4000/pembicara/accept-or-decline-materi
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMzY0NiwiZXhwIjoxNzA5MTM0NTQ2fQ.5h1fV_-MsrotfxnxYnkmx0QLstZH_K24sUxaNCcnsCA
+Content-Type: application/json
+
+{
+    "proposalPembicaraId": "65df4bb5158c2da7c8f2e7b7",
+    "statusProposal": "Diterima Panitia"
+}
+
+65df52d97c4eba5c117e9a9d

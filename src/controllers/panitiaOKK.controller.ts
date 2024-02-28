@@ -41,7 +41,6 @@ const getAllRapatSession = async (req: RequestWithPanitia, res: Response) => {
 
 const isiAbsensiRapat = async (req: RequestWithPanitia, res: Response) => {
     const { rapatId, passphraseAbsensi }: IsiAbsensiRapatRequestBody = req.body as IsiAbsensiRapatRequestBody
-    console.log(req.panitia)
     try {
         if (! rapatId || ! passphraseAbsensi) return res.sendStatus(404)
         const rapat = await RapatOKKModel.findById(rapatId)

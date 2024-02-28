@@ -1,6 +1,5 @@
 import PesertaOKK from '../pesertaOKK.interface';
 import RequestWithMahasiswa from './requestWithMahasiswa.interface';
-import RequestWithUser from './requestWithUser.interface';
 
 interface RequestWithPeserta extends RequestWithMahasiswa {
     peserta: PesertaOKK

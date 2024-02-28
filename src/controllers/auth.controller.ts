@@ -62,7 +62,6 @@ const register = async (req: Request, res: Response) => {
         const userId = newUser._id
 
         if (["Peserta", "Mentor", "Panitia"].includes(loginAs)) {
-            console.log(nama,fakultas,jurusan,angkatan)
             if (nama        === undefined) return res.sendStatus(404)
             if (fakultas    === undefined) return res.sendStatus(404)
             if (jurusan     === undefined) return res.sendStatus(404)
@@ -117,7 +116,6 @@ const login = async (req: Request, res: Response) => {
     const { username, password }: LoginRequestBody = req.body as LoginRequestBody
     try {
         const user = await UserModel.findOne({ username })
-        console.log(user)
         if (! user) return res.sendStatus(404)
         if (! (await bcrypt.compare(password, user.password))) return res.sendStatus(401)
 
@@ -144,7 +142,6 @@ const getAllMentor = async (req: Request, res: Response) => {
         const allMentor = await MentorOKKModel.find({})
         const allMentorWithMoreInfo = await Promise.all(allMentor.map(async (mentor: MentorOKK) => {
             const mahasiswaFromMentor = await MahasiswaModel.findById(mentor.mahasiswaId)
-            console.log({ dataMahasiswa: mahasiswaFromMentor, dataMentor: mentor})
             return { dataMahasiswa: mahasiswaFromMentor, dataMentor: mentor}
         }))
         return res.status(200).json(allMentorWithMoreInfo)
@@ -160,7 +157,6 @@ const getAllPeserta = async (req: Request, res: Response) => {
         const allPeserta = await PesertaOKKModel.find({})
         const allPesertaWithMoreInfo = await Promise.all(allPeserta.map(async (peserta: PesertaOKK) => {
             const mahasiswaFromPeserta = await MahasiswaModel.findById(peserta.mahasiswaId)
-            console.log({ dataMahasiswa: mahasiswaFromPeserta, dataMentor: peserta})
             return { dataMahasiswa: mahasiswaFromPeserta, dataMentor: peserta}
         }))
         return res.status(200).json(allPesertaWithMoreInfo)
@@ -198,7 +194,6 @@ const getAllPanitia = async (req: Request, res: Response) => {
         const allPanitia = await PanitiaOKKModel.find({})
         const allPanitiaWithMoreInfo = await Promise.all(allPanitia.map(async (panitia: PanitiaOKK) => {
             const mahasiswaFromPanitia = await MahasiswaModel.findById(panitia.mahasiswaId)
-            console.log({ dataMahasiswa: mahasiswaFromPanitia, dataMentor: panitia})
             return { dataMahasiswa: mahasiswaFromPanitia, dataMentor: panitia}
         }))
         return res.status(200).json(allPanitiaWithMoreInfo)

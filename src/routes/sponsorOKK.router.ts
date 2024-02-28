@@ -7,7 +7,7 @@ const sponsorOKKRouter: Router = Router()
 sponsorOKKRouter.use(authenticateUser)
 
 sponsorOKKRouter.get('/get-all-proposal-sponsor', authenticatePanitia, getAllProposalSponsor)
-sponsorOKKRouter.post('/make-proposal-sponsor', authenticatePanitia, makeProposalSponsor)
+sponsorOKKRouter.post('/create-proposal-sponsor', authenticatePanitia, makeProposalSponsor)
 sponsorOKKRouter.patch('/respon-proposal', authenticateSponsor, responDariSponsor)
 
 export default sponsorOKKRouter

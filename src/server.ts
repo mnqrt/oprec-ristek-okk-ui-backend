@@ -6,6 +6,9 @@ import cors from "cors"
 import authRouter from "./routes/auth.router"
 import kelompokOKKRouter from "./routes/kelompokOKK.router"
 import panitiaOKKRouter from "./routes/panitiaOKK.router"
+import sponsorOKKRouter from "./routes/sponsorOKK.router"
+import acaraRouter from "./routes/acaraOKK.router"
+import pembicaraOKKRouter from "./routes/pembicaraOKK.router"
 
 dotenv.config()
 
@@ -24,5 +27,8 @@ app.use(express.json())
 app.use('/auth', authRouter)
 app.use('/mentoring', kelompokOKKRouter)
 app.use('/rapat', panitiaOKKRouter)
+app.use('/sponsor', sponsorOKKRouter)
+app.use('/acara', acaraRouter)
+app.use('/pembicara', pembicaraOKKRouter)
 
 app.listen(port, () => console.log(`[server]: Server is running at http://localhost:${port}`))
