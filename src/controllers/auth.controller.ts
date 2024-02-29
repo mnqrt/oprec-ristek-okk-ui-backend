@@ -221,6 +221,8 @@ const getAllPanitia = async (req: Request, res: Response) => {
 const deleteAllToken = async (req: Request, res: Response) => { //ONLY USE THIS WHEN WRONG DATA OCCUR
     try {
         await TokenModel.deleteMany({})
+        res.cookie("ACCESS_TOKEN_USER", "")
+        res.cookie("REFRESH_TOKEN_USER", "")
         res.sendStatus(204)
     }
     catch (error: unknown) {
