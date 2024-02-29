@@ -35,11 +35,12 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 | /delete-all         | DELETE | \-               | \-                   | Delete semua model                      |
 
 ## /mentoring 
-| Route                  | Method | Need to Login as | JSON Request Body                            | Explanation                     |
-| ---------------------- | ------ | ---------------- | -------------------------------------------- | ------------------------------- |
-| /get-all-mentoring     | GET    | Mentor           | \-                                           | \-                              |
-| /create-mentoring      | POST   | Mentor           | {lokasiMentoring, materi, passphraseAbsensi} | Membuat sesi mentoring          |
-| /isi-absensi-mentoring | PATCH  | Peserta          | {mentoringId, passphraseAbsensi}             | Mengisi absensi untuk mentoring |
+| Route                        | Method | Need to Login as | JSON Request Body                            | Explanation                                          |
+| ---------------------------- | ------ | ---------------- | -------------------------------------------- | ---------------------------------------------------- |
+| /get-all-mentoring-by-mentor | GET    | Mentor           | \-                                           | Return semua mentoring yang diadakan mentor tersebut |
+| /get-all-mentoring           | GET    | Panitia          | \-                                           | Return semua mentoring                               |
+| /create-mentoring            | POST   | Mentor           | {lokasiMentoring, materi, passphraseAbsensi} | Membuat sesi mentoring                               |
+| /isi-absensi-mentoring       | PATCH  | Peserta          | {mentoringId, passphraseAbsensi}             | Mengisi absensi untuk mentoring                      |
 
 ## /rapat 
 | Route          | Method | Need to Login as | JSON Request Body                                 | Explanation        |
