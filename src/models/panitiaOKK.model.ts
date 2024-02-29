@@ -22,7 +22,7 @@ const panitiaOKKSchema = new mongoose.Schema({
     },
     bidangTerkait: {
         type: String,
-        enum: [null, "PO", "VPO", "Sekretaris Umum", "Controller", "Treasurer", "Koordinator Acara", "Koordinator Mentor"] //ini masi panjang lagi :)
+        enum: [null, "PO", "VPO", "Sekretaris Umum", "Controller", "Treasurer", "Koordinator Acara", "Koordinator Mentor"] 
     },
     jabatan: {
         type: String,

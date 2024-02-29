@@ -218,21 +218,6 @@ const getAllPanitia = async (req: Request, res: Response) => {
     }
 }
 
-const deleteAll = async (req: Request, res: Response) => { //ONLY USE THIS WHEN WRONG DATA OCCUR
-    try {
-        await UserModel.deleteMany({})
-        await MahasiswaModel.deleteMany({})
-        await MentorOKKModel.deleteMany({})
-        await PanitiaOKKModel.deleteMany({})
-        await PesertaOKKModel.deleteMany({})
-        res.sendStatus(204)
-    }
-    catch (error: unknown) {
-        if (error instanceof Error) res.status(503).json({ message: error.message });
-        else res.sendStatus(500);
-    }
-}
-
 const deleteAllToken = async (req: Request, res: Response) => { //ONLY USE THIS WHEN WRONG DATA OCCUR
     try {
         await TokenModel.deleteMany({})
@@ -257,7 +242,7 @@ const deleteAllMeeting = async (req: Request, res: Response) => { //ONLY USE THI
     }
 }
 
-const deleteAllSponsor_Pembicara_Acara_Proposal = async (req: Request, res: Response) => { //ONLY USE THIS WHEN WRONG DATA OCCUR
+const deleteAll = async (req: Request, res: Response) => { //ONLY USE THIS WHEN WRONG DATA OCCUR
     try {
         await SponsorOKKModel.deleteMany({})
         await PembicaraOKKModel.deleteMany({})
@@ -306,4 +291,4 @@ const generateToken = async (req: Request, res: Response) => {
     }
 }
 
-export { register, login, logout, deleteAll, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAllSponsor_Pembicara_Acara_Proposal }
+export { register, login, logout, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAll }

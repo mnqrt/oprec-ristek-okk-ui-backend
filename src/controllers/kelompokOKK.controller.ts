@@ -65,27 +65,3 @@ const isiAbsensiMentoring = async (req: RequestWithPeserta, res: Response) => {
 }
 
 export { makeMentoringSession, getAllMentoringSession, isiAbsensiMentoring }
-/*
-import mongoose, { Mongoose } from "mongoose";
-import Meeting from "../interfaces/meeting.interface";
-
-const meetingSchema = new mongoose.Schema({
-    tempat: {
-        type: String,
-        require: true
-    },
-    waktu: {
-        type: Date,
-        default: Date.now
-    },
-    listHadir: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'MahasiswaModel',
-        require: true
-    }]
-})
-
-const MeetingModel = mongoose.model<Meeting & mongoose.Document>("MeetingModel", meetingSchema)
-
-export default MeetingModel
-*/

@@ -6,7 +6,7 @@ interface PanitiaOKK {
     mahasiswaId: mongoose.Schema.Types.ObjectId,
 
     tipePengurus: string,
-    bidangTerkait: string, //nanti lanjutin ini, kebanyakan
+    bidangTerkait: string,
     jabatan: string,
 }
 

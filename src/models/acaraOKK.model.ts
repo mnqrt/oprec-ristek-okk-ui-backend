@@ -1,17 +1,3 @@
-/*
-import mongoose from "mongoose";
-
-interface AcaraOKK {
-    _id: mongoose.Schema.Types.ObjectId,
-
-    namaAcara: string,
-    jadwalAcara: Date,
-    listSponsorBesertaPaket: mongoose.Schema.Types.ObjectId,
-    listPembicara: mongoose.Schema.Types.ObjectId
-}
-
-export default AcaraOKK
-*/
 import mongoose from "mongoose";
 import AcaraOKK from "../interfaces/acaraOKK.interface";
 
