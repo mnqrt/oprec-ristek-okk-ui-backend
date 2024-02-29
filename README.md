@@ -43,10 +43,11 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 | /isi-absensi-mentoring       | PATCH  | Peserta          | {mentoringId, passphraseAbsensi}             | Mengisi absensi untuk mentoring                      |
 
 ## /rapat 
-| Route          | Method | Need to Login as | JSON Request Body                                 | Explanation        |
-| -------------- | ------ | ---------------- | ------------------------------------------------- | ------------------ |
-| /get-all-rapat | GET    | Panitia          | \-                                                | \-                 |
-| /create-rapat  | POST   | Panitia          | {lokasiRapat, kesimpulanRapat, passphraseAbsensi} | Membuat sesi rapat |
+| Route              | Method | Need to Login as | JSON Request Body                                 | Explanation                     |
+| ------------------ | ------ | ---------------- | ------------------------------------------------- | ------------------------------- |
+| /get-all-rapat     | GET    | Panitia          | \-                                                | \-                              |
+| /create-rapat      | POST   | Panitia          | {lokasiRapat, kesimpulanRapat, passphraseAbsensi} | Membuat sesi rapat              |
+| /isi-absensi-rapat | PATCH  | Panitia          | {rapatId, passphraseAbsensi}                      | Mengisi absensi untuk mentoring |
 
 ## /acara
 | Route          | Method | Need to Login as | JSON Request Body        | Explanation        |
