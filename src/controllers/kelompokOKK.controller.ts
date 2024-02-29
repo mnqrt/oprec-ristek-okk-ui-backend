@@ -6,6 +6,7 @@ import MentoringOKK from "../interfaces/MentoringOKK.interface";
 import IsiAbsensiMentoringRequestBody from "../interfaces/RequestInterfaces/isiAbsensiMentoringRequestBody.interface";
 import MakeMentoringRequestBody from "../interfaces/RequestInterfaces/makeMentoringRequestBody.interface";
 import RequestWithMentor from "../interfaces/RequestInterfaces/requestWithMentor.model";
+import RequestWithPanitia from "../interfaces/RequestInterfaces/requestWithPanitia.interface";
 import RequestWithPeserta from "../interfaces/RequestInterfaces/requestWithPeserta.interface";
 import MahasiswaModel from "../models/mahasiswa.model";
 import MeetingModel from "../models/meeting.model";
@@ -33,9 +34,20 @@ const makeMentoringSession = async (req: RequestWithMentor, res: Response) => {
     }
 }
 
-const getAllMentoringSession = async (req: RequestWithMentor, res: Response) => {
+const getAllMentoringSession = async (req: RequestWithPanitia, res: Response) => {
     try {
         res.json(await MentoringOKKModel.find({}))
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+const getMentoringSessionByMentor = async (req: RequestWithMentor, res: Response) => {
+    try {
+        const allMentoringByMentor = await MentoringOKKModel.find({ noKelompokOKK: req.mentor.noKelompok })
+        res.json(allMentoringByMentor)
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -64,4 +76,4 @@ const isiAbsensiMentoring = async (req: RequestWithPeserta, res: Response) => {
     }
 }
 
-export { makeMentoringSession, getAllMentoringSession, isiAbsensiMentoring }
+export { makeMentoringSession, getAllMentoringSession, getMentoringSessionByMentor, isiAbsensiMentoring }

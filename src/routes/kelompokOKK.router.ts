@@ -1,13 +1,16 @@
 import { Router } from 'express'
-import { getAllMentoringSession, isiAbsensiMentoring, makeMentoringSession } from '../controllers/kelompokOKK.controller'
-import { authenticateMentor, authenticatePeserta, authenticateUser } from '../middlewares/auth.middleware'
+import { getAllMentoringSession, getMentoringSessionByMentor, isiAbsensiMentoring, makeMentoringSession } from '../controllers/kelompokOKK.controller'
+import { authenticateMentor, authenticatePanitia, authenticatePeserta, authenticateUser } from '../middlewares/auth.middleware'
 
 const kelompokOKKRouter: Router = Router()
 
 kelompokOKKRouter.use(authenticateUser)
 
-kelompokOKKRouter.patch('/isi-absensi-mentoring', authenticatePeserta, isiAbsensiMentoring)
-kelompokOKKRouter.get('/get-all-mentoring', authenticateMentor, getAllMentoringSession)
+kelompokOKKRouter.get('/get-all-mentoring', authenticatePanitia, getAllMentoringSession)
+kelompokOKKRouter.get('/get-all-mentoring-by-mentor', authenticateMentor, getMentoringSessionByMentor)
+
 kelompokOKKRouter.post('/create-mentoring', authenticateMentor, makeMentoringSession)
+
+kelompokOKKRouter.patch('/isi-absensi-mentoring', authenticatePeserta, isiAbsensiMentoring)
 
 export default kelompokOKKRouter
