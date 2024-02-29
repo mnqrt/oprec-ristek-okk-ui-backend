@@ -24,6 +24,7 @@ import { SponsorOKK } from '../interfaces/sponsorOKK.interface'
 import AcaraOKKModel from '../models/acaraOKK.model'
 import ProposalSponsorOKKModel from '../models/proposalSponsorOKK.model'
 import ProposalPembicaraOKKModel from '../models/proposalPembicaraOKK.model'
+import RequestWithUser from '../interfaces/RequestInterfaces/requestWithUser.interface'
 
 dotenv.config()
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
@@ -130,6 +131,19 @@ const login = async (req: Request, res: Response) => {
         await newToken.save()
 
         res.status(200).json({ accessToken, refreshToken })
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+const logout = async (req: RequestWithUser, res: Response) => {
+    try {
+        await TokenModel.findOneAndDelete({ refreshToken: req.cookies['REFRESH_TOKEN_USER'] })
+        res.cookie("ACCESS_TOKEN_USER", "")
+        res.cookie("REFRESH_TOKEN_USER", "")
+        res.sendStatus(204)
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -292,4 +306,4 @@ const generateToken = async (req: Request, res: Response) => {
     }
 }
 
-export { register, login, deleteAll, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAllSponsor_Pembicara_Acara_Proposal }
+export { register, login, logout, deleteAll, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAllSponsor_Pembicara_Acara_Proposal }

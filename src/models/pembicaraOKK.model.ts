@@ -15,9 +15,8 @@ const pembicaraOKKSchema = new mongoose.Schema({
         unique: true
     },
     listAcaraDiisi: [{
-        acara: {
-            type: mongoose.Schema.Types.ObjectId
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'AcaraModel'
     }]
 })
 

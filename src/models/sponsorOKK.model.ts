@@ -15,9 +15,8 @@ const sponsorOKKSchema = new mongoose.Schema({
         unique: true
     },
     listAcaraDisponsori: [{
-        acara: {
-            type: mongoose.Schema.Types.ObjectId,
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'AcaraModel'
     }]
 })
 

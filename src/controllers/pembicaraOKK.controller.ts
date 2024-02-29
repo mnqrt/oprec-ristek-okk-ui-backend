@@ -23,6 +23,7 @@ import RequestWithPanitia from "../interfaces/RequestInterfaces/requestWithPanit
 import RequestWithPembicara from "../interfaces/RequestInterfaces/requestWithPembicara.interface";
 import ResponProposalPembicaraRequestBody from "../interfaces/RequestInterfaces/responProposalPembicaraRequestBody.interface";
 import AcaraOKKModel from "../models/acaraOKK.model";
+import PembicaraOKKModel from "../models/pembicaraOKK.model";
 import ProposalPembicaraOKKModel from "../models/proposalPembicaraOKK.model";
 
 const makeProposalPembicara = async (req: RequestWithPanitia, res: Response) => {
@@ -79,6 +80,11 @@ const accOrDeclinemateriPembicara = async (req: RequestWithPanitia, res: Respons
 
             acaraFromProposalId?.listPembicaraBesertaMateri.push({ pembicaraAcara: proposalPembicara.pembicaraId, materi: proposalPembicara.materiProposal })
             await acaraFromProposalId?.save()
+
+            const pembicara = await PembicaraOKKModel.findById(proposalPembicara.pembicaraId)
+            pembicara?.listAcaraDiisi.push( proposalPembicara.acaraId )
+            await pembicara?.save()
+
             return res.status(204).json({ proposalPembicara: proposalPembicara, acara: acaraFromProposalId })
         }
         res.status(204).json(proposalPembicara)

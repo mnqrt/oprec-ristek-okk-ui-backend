@@ -38,9 +38,15 @@ const responDariSponsor = async (req: RequestWithSponsor, res: Response) => {
             const acaraFromProposalId = await AcaraOKKModel.findById(proposalSponsorOKK.acaraId)
             acaraFromProposalId?.listSponsorBesertaPaket.push({ sponsor: proposalSponsorOKK.sponsorId, paket })
             await acaraFromProposalId?.save()
+
+            const sponsor = await SponsorOKKModel.findById(proposalSponsorOKK.sponsorId)
+            sponsor?.listAcaraDisponsori.push(proposalSponsorOKK.acaraId)
+            await sponsor?.save()
+
+            res.status(204).json({ proposal: proposalSponsorOKK, acaraOKK: await AcaraOKKModel.findById(proposalSponsorOKK.acaraId), acara: acaraFromProposalId})
         }
 
-        res.status(200).json({ proposal: proposalSponsorOKK, acaraOKK: await AcaraOKKModel.findById(proposalSponsorOKK.acaraId)})
+        res.status(204).json({ proposal: proposalSponsorOKK})
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
