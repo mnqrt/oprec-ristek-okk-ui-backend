@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getAllMentoringSession, getMentoringSessionByMentor, isiAbsensiMentoring, makeMentoringSession } from '../controllers/kelompokOKK.controller'
+import { deleteMentoringById, getAllMentoringSession, getMentoringSessionByMentor, isiAbsensiMentoring, makeMentoringSession } from '../controllers/kelompokOKK.controller'
 import { authenticateMentor, authenticatePanitia, authenticatePeserta, authenticateUser } from '../middlewares/auth.middleware'
 
 const kelompokOKKRouter: Router = Router()
@@ -12,5 +12,7 @@ kelompokOKKRouter.get('/get-all-mentoring-by-mentor', authenticateMentor, getMen
 kelompokOKKRouter.post('/create-mentoring', authenticateMentor, makeMentoringSession)
 
 kelompokOKKRouter.patch('/isi-absensi-mentoring', authenticatePeserta, isiAbsensiMentoring)
+
+kelompokOKKRouter.delete('/delete-mentoring-by-id/:mentoringId', authenticateMentor, deleteMentoringById)
 
 export default kelompokOKKRouter

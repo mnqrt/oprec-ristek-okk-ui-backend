@@ -36,7 +36,13 @@ const makeMentoringSession = async (req: RequestWithMentor, res: Response) => {
 
 const getAllMentoringSession = async (req: RequestWithPanitia, res: Response) => {
     try {
-        res.json(await MentoringOKKModel.find({}))
+        const allMentoring = await MentoringOKKModel.find({})
+
+        const allMentoringWithAdditionalInfo = await Promise.all(allMentoring.map(async (mentoring: MentoringOKK) => {
+            const meeting = await MeetingModel.findById(mentoring.meetingId)
+            return { mentoring, meeting }
+        }))
+        res.json(allMentoringWithAdditionalInfo)
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -47,7 +53,12 @@ const getAllMentoringSession = async (req: RequestWithPanitia, res: Response) =>
 const getMentoringSessionByMentor = async (req: RequestWithMentor, res: Response) => {
     try {
         const allMentoringByMentor = await MentoringOKKModel.find({ noKelompokOKK: req.mentor.noKelompok })
-        res.json(allMentoringByMentor)
+
+        const allMentoringByMentorWithAdditionalInfo = await Promise.all(allMentoringByMentor.map(async (mentoring: MentoringOKK) => {
+            const meetingByMentoring = await MeetingModel.findById(mentoring.meetingId)
+            return { mentoring, meeting: meetingByMentoring }
+        }))
+        res.json(allMentoringByMentorWithAdditionalInfo)
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -78,4 +89,18 @@ const isiAbsensiMentoring = async (req: RequestWithPeserta, res: Response) => {
     }
 }
 
-export { makeMentoringSession, getAllMentoringSession, getMentoringSessionByMentor, isiAbsensiMentoring }
+const deleteMentoringById = async (req: RequestWithMentor, res: Response) => {
+    try {
+        const mentoringId = req.params.mentoringId
+        const meetingId = (await MentoringOKKModel.findById(mentoringId))?.meetingId
+        await MentoringOKKModel.findOneAndDelete({ _id: mentoringId })
+        await MeetingModel.findOneAndDelete({ _id: meetingId })
+        res.sendStatus(204)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+export { makeMentoringSession, getAllMentoringSession, getMentoringSessionByMentor, isiAbsensiMentoring, deleteMentoringById }
