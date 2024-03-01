@@ -20,7 +20,7 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 # All Routes
 ## Register
 - Dilakukan melalui /auth/register
-- Jika register sebagai PanitiaOKK, perlu melampirkan `[username, password, role, nama, fakultas, jurusan, angkatan, tipePengurus, bidangTerkait, jabatan]`
+- Jika register sebagai PanitiaOKK, perlu melampirkan `[username, password, role, nama, fakultas, jurusan, angkatan, tipePengurus, bidangTerkait, jabatan]`. Maksimal 1 PJ dan 2 WaPJ
 - Jika register sebagai PesertaOKK, perlu melampirkan `[username, password, role, nama, fakultas, jurusan, angkatan, noKelompok, jalurMasuk]`
 - Jika register sebagai MentorOKK, perlu melampirkan  `[username, password, role, nama, fakultas, jurusan, angkatan, noKelompok]`
 - Jika register sebagai SponsorOKK, perlu melampirkan `[username, password, role, namaSponsor]`
@@ -58,8 +58,8 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 | Route                    | Method | Need to Login as | JSON Request Body                                 | Explanation                     |
 | ------------------------ | ------ | ---------------- | ------------------------------------------------- | ------------------------------- |
 | /get-all-rapat           | GET    | Panitia          | \-                                                | \-                              |
-| /create-rapat            | POST   | Panitia          | {lokasiRapat, kesimpulanRapat, passphraseAbsensi} | Membuat sesi rapat              |
-| /isi-absensi-rapat       | PATCH  | Panitia          | {rapatId, passphraseAbsensi}                      | Mengisi absensi untuk mentoring |
+| /create-rapat            | POST   | Panitia          | {lokasiRapat, kesimpulanRapat, passphraseAbsensi} | Hanya dapat dibuat PJ/WaPJ              |
+| /isi-absensi-rapat       | PATCH  | Panitia          | {rapatId, passphraseAbsensi}                      | Hanya dapat diisi panitia dengan bidang sama |
 | /delete-rapat-by-id/{id} | DELETE | Panitia          | \-                                                | \-                              |
 
     1. Panitia membuat rapat dengan `POST /rapat/create-rapat` (beserta JSON Request Body).
