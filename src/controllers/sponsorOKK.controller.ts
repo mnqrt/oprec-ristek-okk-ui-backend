@@ -64,4 +64,17 @@ const getAllProposalSponsor = async (req: RequestWithPanitia, res: Response) => 
     }
 }
 
-export { makeProposalSponsor, responDariSponsor, getAllProposalSponsor }
+const deleteProposalSponsorById = async (req: RequestWithPanitia, res: Response) => {
+    try {
+        const proposalSponsorId = req.params.proposalSponsorId
+        if (! proposalSponsorId) return res.status(404).send("proposalSponsorId tidak ditemukan")
+        await ProposalSponsorOKKModel.findByIdAndDelete(proposalSponsorId)
+        res.sendStatus(204)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+export { makeProposalSponsor, responDariSponsor, getAllProposalSponsor, deleteProposalSponsorById }

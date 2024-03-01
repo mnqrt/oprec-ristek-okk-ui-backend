@@ -129,4 +129,17 @@ const getAllProposalPembicara = async (req: RequestWithPanitia, res: Response) =
     }
 }
 
-export { makeProposalPembicara, responProposalPembicara, accOrDeclinemateriPembicara, respondToDeclinedMateri, getAllProposalPembicara }
+const deleteProposalPembicaraById = async (req: RequestWithPanitia, res: Response) => {
+    try {
+        const proposalPembicaraId = req.params.proposalPembicaraId
+        if (! proposalPembicaraId) return res.status(404).send("proposalPembicaraId tidak ditemukan")
+        await ProposalPembicaraOKKModel.findByIdAndDelete(proposalPembicaraId)
+        res.sendStatus(204)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+export { makeProposalPembicara, responProposalPembicara, accOrDeclinemateriPembicara, respondToDeclinedMateri, getAllProposalPembicara, deleteProposalPembicaraById }

@@ -27,4 +27,17 @@ const getAllAcara = async (req: RequestWithPanitia, res: Response) => {
     }
 }
 
-export { makeAcara, getAllAcara }
+const deleteAcaraById = async (req: RequestWithPanitia, res: Response) => {
+    try {
+        const acaraId = req.params.acaraId
+        if (! acaraId) return res.status(404).send("acaraId tidak ditemukan")
+        await AcaraOKKModel.findByIdAndDelete(acaraId)
+        res.sendStatus(204)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+export { makeAcara, getAllAcara, deleteAcaraById }
