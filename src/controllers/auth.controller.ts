@@ -4,13 +4,13 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import UserModel from '../models/user.model'
-import RegisterRequestBody from '../interfaces/RequestInterfaces/registerRequestBody.interface'
+import RegisterRequestBody from '../interfaces/RequestInterfaces/RequestBodyInterface/registerRequestBody.interface'
 import MahasiswaModel from '../models/mahasiswa.model'
 import MentorOKKModel from '../models/mentorOKK.model'
 import MentorOKK from '../interfaces/mentorOKK.interface'
 import PanitiaOKKModel from '../models/panitiaOKK.model'
 import PesertaOKKModel from '../models/pesertaOKK.model'
-import LoginRequestBody from '../interfaces/RequestInterfaces/loginRequestBody.interface'
+import LoginRequestBody from '../interfaces/RequestInterfaces/RequestBodyInterface/loginRequestBody.interface'
 import TokenModel from '../models/token.models'
 import User from '../interfaces/user.interface'
 import PesertaOKK from '../interfaces/pesertaOKK.interface'
@@ -29,6 +29,12 @@ import RequestWithUser from '../interfaces/RequestInterfaces/requestWithUser.int
 dotenv.config()
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET as string
+
+const BIDANG_PI = ["PO", "VPO", "Sekretaris Umum", "Controller", "Treasurer", "Koordinator Acara", "Koordinator Mentor", 
+                    ,"Koordinator bidang Acara", "Sarana dan Prasarana", "Operasional", "Materi dan Mentor", "Kreatif", "Relasi"]
+const BIDANG_BPH = ["Project", "Sponsorship", "Kesekretariatan", "PSDM", "Acara Puncak", "Eksplorasi", "Transportasi dan Konsumsi", 
+                    "Perizinan", "Logistik", "Keamanan", "Medis", "Media Informasi", "Kelembagaan", "Materi", "Mentor", 
+                    "Media Partner", "IT dan Broadcast", "Dekorasi dan Wardrobe", "Visual Design dan Dokumentasi"]
 
 interface Id {
     id: string,
@@ -80,6 +86,10 @@ const register = async (req: Request, res: Response) => {
                 if (tipePengurus    === undefined) return res.status(404).send("Jika mendaftar sebagai Panitia; tipePengurus tidak boleh kosong!")
                 if (bidangTerkait   === undefined) return res.status(404).send("Jika mendaftar sebagai Panitia; bidangTerkait tidak boleh kosong!")
                 if (jabatan         === undefined) return res.status(404).send("Jika mendaftar sebagai Panitia; jabatan tidak boleh kosong!")
+
+                if (tipePengurus === "PI" && ! BIDANG_PI.includes(bidangTerkait)) return res.status(403).send("bidangTerkait tidak ada di PI")
+                if (tipePengurus === "BPH" && ! BIDANG_BPH.includes(bidangTerkait)) return res.status(403).send("bidangTerkait tidak ada di BPH")
+
                 const newPanitia = new PanitiaOKKModel({ userId, mahasiswaId, tipePengurus, bidangTerkait, jabatan })
                 await newPanitia.save()
             }
