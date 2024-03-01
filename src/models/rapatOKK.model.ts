@@ -10,6 +10,9 @@ const rapatOKKSchema = new mongoose.Schema({
     kesimpulanRapat: {
         type: String,
         require: true
+    },
+    bidangTerkaitRapat: {
+        type: String
     }
 })
 
