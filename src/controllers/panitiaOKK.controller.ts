@@ -10,7 +10,7 @@ import RapatOKKModel from "../models/rapatOKK.model";
 const makeRapatSession = async (req: RequestWithPanitia, res: Response) => {
     const { lokasiRapat, kesimpulanRapat, passphraseAbsensi }: MakeRapatRequestBody = req.body as MakeRapatRequestBody
     try {
-        if (! lokasiRapat) return res.sendStatus(404)
+        if (! lokasiRapat || ! kesimpulanRapat) return res.status(404).send("lokasiRapat dan kesimpulanRapat harus diisi!")
         const mahasiswaFromIdPanitia = await MahasiswaModel.findById(req.panitia.mahasiswaId)
         if (! mahasiswaFromIdPanitia) return res.sendStatus(403)
 
@@ -42,14 +42,14 @@ const getAllRapatSession = async (req: RequestWithPanitia, res: Response) => {
 const isiAbsensiRapat = async (req: RequestWithPanitia, res: Response) => {
     const { rapatId, passphraseAbsensi }: IsiAbsensiRapatRequestBody = req.body as IsiAbsensiRapatRequestBody
     try {
-        if (! rapatId || ! passphraseAbsensi) return res.sendStatus(404)
+        if (! rapatId || ! passphraseAbsensi) return res.status(404).send("rapatId dan passphraseAbsensi tidak boleh kosong!")
         const rapat = await RapatOKKModel.findById(rapatId)
-        if (! rapat) return res.sendStatus(403)
+        if (! rapat) return res.status(403).send(`tidak ditemukan rapat dengan id ${rapatId}`)
         const meeting = await MeetingModel.findById(rapat.meetingId)
-        if (! meeting) return res.sendStatus(403)
-        if(meeting.passphraseAbsensi !== passphraseAbsensi) return res.sendStatus(503)
+        if (! meeting) return res.status(403).send(`tidak ditemukan meeting yang bersangkutan`)
+        if(meeting.passphraseAbsensi !== passphraseAbsensi) return res.status(503).send("passphraseAbsensi tidak sesuai")
         
-        if (meeting.listHadir.includes(req.panitia.userId)) return res.send("KAMU UDAH ABSENSI, NGAPAIN LAGI?")
+        if (meeting.listHadir.includes(req.panitia.userId)) return res.status(400).send("Anda hanya dapat mengisi absensi sebanyak 1 kali.")
         meeting.listHadir.push(req.panitia.userId)
         await meeting.save()
         res.status(201).json(meeting)

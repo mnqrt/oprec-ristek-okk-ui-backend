@@ -15,7 +15,7 @@ import MentoringOKKModel from "../models/mentoringOKK.model";
 const makeMentoringSession = async (req: RequestWithMentor, res: Response) => {
     const { lokasiMentoring, materi, passphraseAbsensi }: MakeMentoringRequestBody = req.body as MakeMentoringRequestBody
     try {
-        if (! lokasiMentoring ) return res.sendStatus(404)
+        if (! lokasiMentoring || ! materi ) return res.status(404).send("lokasiMentoring dan materi harus diisi!")
         const mahasiswaFromIdMentor = await MahasiswaModel.findById(req.mentor.mahasiswaId)
         if (! mahasiswaFromIdMentor) return res.sendStatus(403)
 
@@ -58,14 +58,16 @@ const getMentoringSessionByMentor = async (req: RequestWithMentor, res: Response
 const isiAbsensiMentoring = async (req: RequestWithPeserta, res: Response) => {
     const { mentoringId, passphraseAbsensi }: IsiAbsensiMentoringRequestBody = req.body as IsiAbsensiMentoringRequestBody
     try {
-        if (! mentoringId || ! passphraseAbsensi) return res.sendStatus(404)
+        if (! mentoringId || ! passphraseAbsensi) return res.status(404).send("mentoringId dan passphraseAbsensi tidak boleh kosong!")
         const mentoring = await MentoringOKKModel.findById(mentoringId)
-        if (! mentoring) return res.sendStatus(403)
+        if (! mentoring) return res.status(403).send(`tidak ditemukan mentoring dengan id ${mentoringId}!`)
         const meeting = await MeetingModel.findById(mentoring.meetingId)
-        if (! meeting) return res.sendStatus(403)
-        if(meeting.passphraseAbsensi !== passphraseAbsensi) return res.sendStatus(503)
+        if (! meeting) return res.status(403).send(`tidak ditemukan meeting yang bersangkutan!`)
+        if (req.peserta.noKelompok !== mentoring.noKelompokOKK) return res.status(403).send("kelompok anda tidak sesuai")
+        if (meeting.passphraseAbsensi !== passphraseAbsensi) return res.status(403).send("passphraseAbsensi tidak sesuai")
+
         
-        if (meeting.listHadir.includes(req.peserta.userId)) return res.send("KAMU UDAH ABSENSI, NGAPAIN LAGI?")
+        if (meeting.listHadir.includes(req.peserta.userId)) return res.status(400).send("Anda hanya dapat mengisi absensi sebanyak 1 kali.")
         meeting.listHadir.push(req.peserta.userId)
         await meeting.save()
         res.status(201).json(meeting)

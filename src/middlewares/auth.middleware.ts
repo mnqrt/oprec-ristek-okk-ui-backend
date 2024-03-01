@@ -47,7 +47,7 @@ async function authenticateUser (req: RequestWithUser, res: Response, next: Next
                 return
             }
 
-            res.sendStatus(403)
+            res.status(403).send("Anda harus login terlebih dahulu.")
             return
         }
         req.user = user
@@ -64,13 +64,13 @@ async function authenticatePanitia (req: RequestWithPanitia, res: Response, next
     if (curUser.role === "Panitia") {
         const panitiaFromUser = await PanitiaOKKModel.findOne({ userId: curUser._id })
         if (! panitiaFromUser) {
-            return res.sendStatus(404)
+            return res.status(404).send("Anda tidak terverifikasi sebagai panitia.")
         }
         req.panitia = panitiaFromUser
         next()
         return
     }
-    return res.sendStatus(403)
+    return res.status(403).send("Role anda haruslah sebagai panitia.")
 }
 
 async function authenticatePeserta (req: RequestWithPeserta, res: Response, next: NextFunction) {
@@ -78,13 +78,13 @@ async function authenticatePeserta (req: RequestWithPeserta, res: Response, next
     if (curUser.role === "Peserta") {
         const pesertaFromUser = await PesertaOKKModel.findOne({ userId: curUser._id })
         if (! pesertaFromUser) {
-            return res.sendStatus(404)
+            return res.status(404).send("Anda tidak terverifikasi sebagai peserta.")
         }
         req.peserta = pesertaFromUser
         next()
         return
     }
-    return res.sendStatus(403)
+    return res.status(403).send("Role anda haruslah sebagai peserta.")
 }
 
 async function authenticateMentor (req: RequestWithMentor, res: Response, next: NextFunction) {
@@ -92,13 +92,13 @@ async function authenticateMentor (req: RequestWithMentor, res: Response, next: 
     if (curUser.role === "Mentor") {
         const mentorFromUser = await MentorOKKModel.findOne({ userId: curUser._id })
         if (! mentorFromUser) {
-            return res.sendStatus(404)
+            return res.status(404).send("Anda tidak terverifikasi sebagai mentor.")
         }
         req.mentor = mentorFromUser
         next()
         return
     }
-    return res.sendStatus(403)
+    return res.status(403).send("Role anda haruslah sebagai mentor.")
 }
 
 async function authenticateSponsor (req: RequestWithSponsor, res: Response, next: NextFunction) {
@@ -106,13 +106,13 @@ async function authenticateSponsor (req: RequestWithSponsor, res: Response, next
     if (curUser.role === "Sponsor") {
         const sponsorFromUser = await SponsorOKKModel.findOne({ userId: curUser._id })
         if (! sponsorFromUser) {
-            return res.sendStatus(404)
+            return res.status(404).send("Anda tidak terverifikasi sebagai sponsor.")
         }
         req.sponsor = sponsorFromUser
         next()
         return
     }
-    return res.sendStatus(403)
+    return res.status(403).send("Role anda haruslah sebagai sponsor.")
 }
 
 async function authenticatePembicara (req: RequestWithPembicara, res: Response, next: NextFunction) {
@@ -120,13 +120,13 @@ async function authenticatePembicara (req: RequestWithPembicara, res: Response, 
     if (curUser.role === "Pembicara") {
         const pembicaraFromUser = await PembicaraOKKModel.findOne({ userId: curUser._id })
         if (! pembicaraFromUser) {
-            return res.sendStatus(404)
+            return res.status(404).send("Anda tidak terverifikasi sebagai pembicara.")
         }
         req.pembicara = pembicaraFromUser
         next()
         return
     }
-    return res.sendStatus(403)
+    return res.status(403).send("Role anda haruslah sebagai pembicara.")
 }
 
 export { authenticateUser, authenticateMentor, authenticatePanitia, authenticatePeserta, authenticateSponsor, authenticatePembicara }

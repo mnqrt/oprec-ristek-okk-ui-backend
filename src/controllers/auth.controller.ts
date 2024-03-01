@@ -63,29 +63,29 @@ const register = async (req: Request, res: Response) => {
         const userId = newUser._id
 
         if (["Peserta", "Mentor", "Panitia"].includes(loginAs)) {
-            if (nama        === undefined) return res.sendStatus(404)
-            if (fakultas    === undefined) return res.sendStatus(404)
-            if (jurusan     === undefined) return res.sendStatus(404)
-            if (angkatan    === undefined) return res.sendStatus(404)
+            if (nama        === undefined) return res.status(404).send("Jika mendaftar sebagai Peserta, Mentor, atau Panitia; nama tidak boleh kosong!")
+            if (fakultas    === undefined) return res.status(404).send("Jika mendaftar sebagai Peserta, Mentor, atau Panitia; fakultas tidak boleh kosong!")
+            if (jurusan     === undefined) return res.status(404).send("Jika mendaftar sebagai Peserta, Mentor, atau Panitia; jurusan tidak boleh kosong!")
+            if (angkatan    === undefined) return res.status(404).send("Jika mendaftar sebagai Peserta, Mentor, atau Panitia; angkatan tidak boleh kosong!")
             const newMahasiswa = new MahasiswaModel({ userId, nama, fakultas, jurusan, angkatan })
             await newMahasiswa.save()
             const mahasiswaId = newMahasiswa._id
 
             if (loginAs === "Mentor") {
-                if (noKelompok === undefined) return res.sendStatus(404)
+                if (noKelompok === undefined) return res.status(404).send("Jika mendaftar sebagai Mentor; noKelompok tidak boleh kosong!")
                 const newMentor = new MentorOKKModel({ userId, mahasiswaId, noKelompok})
                 await newMentor.save()
             }
             if (loginAs === "Panitia") {
-                if (tipePengurus    === undefined) return res.sendStatus(404)
-                if (bidangTerkait   === undefined) return res.sendStatus(404)
-                if (jabatan         === undefined) return res.sendStatus(404)
+                if (tipePengurus    === undefined) return res.status(404).send("Jika mendaftar sebagai Panitia; tipePengurus tidak boleh kosong!")
+                if (bidangTerkait   === undefined) return res.status(404).send("Jika mendaftar sebagai Panitia; bidangTerkait tidak boleh kosong!")
+                if (jabatan         === undefined) return res.status(404).send("Jika mendaftar sebagai Panitia; jabatan tidak boleh kosong!")
                 const newPanitia = new PanitiaOKKModel({ userId, mahasiswaId, tipePengurus, bidangTerkait, jabatan })
                 await newPanitia.save()
             }
             if (loginAs === "Peserta") {
-                if (jalurMasuk === undefined) return res.sendStatus(404)
-                if (noKelompok === undefined) return res.sendStatus(404)
+                if (jalurMasuk === undefined) return res.status(404).send("Jika mendaftar sebagai Peserta; jalurMasuk tidak boleh kosong!")
+                if (noKelompok === undefined) return res.status(404).send("Jika mendaftar sebagai Peserta; noKelompok tidak boleh kosong!")
                 const newPeserta = new PesertaOKKModel({ userId, mahasiswaId, jalurMasuk, noKelompok })
                 await newPeserta.save()
             }
@@ -93,14 +93,14 @@ const register = async (req: Request, res: Response) => {
             return res.sendStatus(201)
         }
         if (loginAs === "Sponsor") {
-            if (! namaSponsor) return res.sendStatus(404)
+            if (! namaSponsor) return res.status(404).send("Jika mendaftar sebagai Sponsor; namaSponsor tidak boleh kosong!")
             const sponsor = new SponsorOKKModel({ userId, namaSponsor, listAcaraDisponsori: [] })
             await sponsor.save()
             await newUser.save()
             return res.sendStatus(201)
         }
         if (loginAs === "Pembicara") {
-            if (! namaPembicara) return res.sendStatus(404)
+            if (! namaPembicara) return res.status(404).send("Jika mendaftar sebagai Pembicara; namaPembicara tidak boleh kosong!")
             const pembicara = new PembicaraOKKModel({ userId, namaPembicara, listAcaraDiisi: [] })
             await pembicara.save()
             await newUser.save()
@@ -116,9 +116,10 @@ const register = async (req: Request, res: Response) => {
 const login = async (req: Request, res: Response) => {
     const { username, password }: LoginRequestBody = req.body as LoginRequestBody
     try {
+        if (! username || ! password) return res.status(404).send("username dan password tidak boleh kosong!")
         const user = await UserModel.findOne({ username })
-        if (! user) return res.sendStatus(404)
-        if (! (await bcrypt.compare(password, user.password))) return res.sendStatus(401)
+        if (! user) return res.status(404).send(`tidak ditemukan user dengan username ${user}`)
+        if (! (await bcrypt.compare(password, user.password))) return res.status(401).send("password tidak sesuai!")
 
         const userIdObject = { id: user._id }
         const accessToken = jwt.sign(userIdObject, ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
@@ -143,7 +144,7 @@ const logout = async (req: RequestWithUser, res: Response) => {
         await TokenModel.findOneAndDelete({ refreshToken: req.cookies['REFRESH_TOKEN_USER'] })
         res.cookie("ACCESS_TOKEN_USER", "")
         res.cookie("REFRESH_TOKEN_USER", "")
-        res.sendStatus(204)
+        res.status(204).send("Berhasil logout")
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
