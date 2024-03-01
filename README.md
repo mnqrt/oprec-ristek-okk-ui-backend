@@ -35,12 +35,16 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 | /delete-all         | DELETE | \-               | \-                   | Delete semua model                      |
 
 ## /mentoring 
-| Route                        | Method | Need to Login as | JSON Request Body                            | Explanation                                          |
-| ---------------------------- | ------ | ---------------- | -------------------------------------------- | ---------------------------------------------------- |
-| /get-all-mentoring-by-mentor | GET    | Mentor           | \-                                           | Return semua mentoring yang diadakan mentor tersebut |
-| /get-all-mentoring           | GET    | Panitia          | \-                                           | Return semua mentoring                               |
-| /create-mentoring            | POST   | Mentor           | {lokasiMentoring, materi, passphraseAbsensi} | Membuat sesi mentoring                               |
-| /isi-absensi-mentoring       | PATCH  | Peserta          | {mentoringId, passphraseAbsensi}             | Mengisi absensi untuk mentoring                      |
+| Route                        | Method | Need to Login as | JSON Request Body                            | Explanation                                              |
+| ---------------------------- | ------ | ---------------- | -------------------------------------------- | -------------------------------------------------------- |
+| /get-all-mentoring-by-mentor | GET    | Mentor           | \-                                           | Return semua mentoring yang diadakan mentor tersebut     |
+| /get-all-mentoring           | GET    | Panitia          | \-                                           | Return semua mentoring                                   |
+| /create-mentoring            | POST   | Mentor           | {lokasiMentoring, materi, passphraseAbsensi} | Membuat sesi mentoring                                   |
+| /isi-absensi-mentoring       | PATCH  | Peserta          | {mentoringId, passphraseAbsensi}             | Mengisi absensi untuk mentoring, noKelompok harus sesuai |
+
+    1. Mentor membuat rapat dengan `POST /mentoring/create-mentoring` (beserta JSON Request Body).
+    2. Mentor memberitahu passphraseAbsensi kepada Peserta mentoring.
+    3. Peserta mentoring mengisi absensi dengan `PATCH /mentoring/isi-absensi-mentoring` (beserta JSON Request Body).
 
 ## /rapat 
 | Route              | Method | Need to Login as | JSON Request Body                                 | Explanation                     |
@@ -48,6 +52,10 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 | /get-all-rapat     | GET    | Panitia          | \-                                                | \-                              |
 | /create-rapat      | POST   | Panitia          | {lokasiRapat, kesimpulanRapat, passphraseAbsensi} | Membuat sesi rapat              |
 | /isi-absensi-rapat | PATCH  | Panitia          | {rapatId, passphraseAbsensi}                      | Mengisi absensi untuk mentoring |
+
+    1. Panitia membuat rapat dengan `POST /rapat/create-rapat` (beserta JSON Request Body).
+    2. Panitia memberitahu passphraseAbsensi kepada Panitia lainnya.
+    3. Panitia lainnya mengisi absensi dengan `PATCH /rapat/isi-absensi-rapat` (beserta JSON Request Body).
 
 ## /acara
 | Route          | Method | Need to Login as | JSON Request Body        | Explanation        |
@@ -67,6 +75,9 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
         a. Sponsor menolak proposal, maka statusProposal = "Ditolak". Selesai.
         b. Sponsor menerima proposal, maka sponsor akan memilih paket, statusProposal = "Diterima: <paket>"
             , dari sini Sponsor beserta Paket akan dimasukkan kedalam listSponsorBesertaPaket didalam AcaraOKKModel
+            , acara juga akan dimasukan kedalam listAcaraDisponsori pada Sponsor. Selesai.
+
+    Note: Untuk membuat proposalSponsor; Panitia perlu untuk membuat acara, kemudian `GET /acara/get-all-acara` untuk mendapatkan acaraId (pada `_id`), perlu juga untuk `GET /auth/get-all-sponsor` untuk mendapatkan sponsorId (pada `_id`)
 
 ## /pembicara 
 | Route                       | Method | Need to Login as | JSON Request Body                             | Explanation                            |
@@ -83,9 +94,13 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
         b. Pembicara menerima proposal, maka statusProposal = "Diterima Pembicara (Menunggu konfirmasi Panitia)" dan pembicara menuliskan materiProposal
     3. Ketika pembicara telah menerima proposal (2a), maka panitia akan membaca materi dan memiliki 2 pilihan:
         a. Panitia menolak materiProposal, maka statusProposal = "Ditolak Panitia". Sehingga Pembicara dapat mengusulkan materiProposal yang baru
-        b. Panitia menerima materiProposal, maka statusProposal = "Diterima Panitia" dan pembicara beserta materi akan dimasukan kedalam listPembicaraBesertaMateri pada model acaraOKK. Selesai.
+        b. Panitia menerima materiProposal, maka statusProposal = "Diterima Panitia"
+            ,dari sini pembicara beserta materi akan dimasukan kedalam listPembicaraBesertaMateri pada model acaraOKK
+            ,acara juga akan dimasukan kedalam listAcaraDiisi dalam Pembicara. Selesai.
     4. Ketika materi ditolak oleh pembicara (3a), maka pembicara memiliki 2 pilihan:
         a. Pembicara menolak proposal (bisa jadi karena ide yang ditawarkan ditolak, ataupun sudah tidak ada ide lain), maka statusProposal = "Ditolak Pembicara". Selesai.
         b. Pembicara mengirimkan materiProposal baru kepada panitia. Sehingga statusProposal = "Diterima Pembicara (Menunggu konfirmasi Panitia)"
     
     ulang step 3-4 SELAMA statusProposal !== "Diterima Panitia" dan statusProposal !== "Ditolak Pembicara"
+
+    Note: Untuk membuat proposalPembicara; Panitia perlu untuk membuat acara, kemudian `GET /acara/get-all-acara` untuk mendapatkan acaraId (pada `_id`), perlu juga untuk `GET /auth/get-all-pembicara` untuk mendapatkan pembicaraId (pada `_id`)
