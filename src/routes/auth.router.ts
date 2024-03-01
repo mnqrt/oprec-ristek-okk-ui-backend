@@ -13,7 +13,7 @@ authRouter.get('/get-all-pembicara', getAllPembicara)
 authRouter.post('/register', register)
 authRouter.post('/login', login)
 
-authRouter.delete('/logout', authenticateUser,logout)
+authRouter.delete('/logout', logout)
 authRouter.delete('/delete-all-token', deleteAllToken)
 authRouter.delete('/delete-all-meeting', deleteAllMeeting)
 authRouter.delete('/delete-all', deleteAll)
