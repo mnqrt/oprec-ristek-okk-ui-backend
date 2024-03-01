@@ -14,7 +14,7 @@ const panitiaOKKSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
-
+    
     tipePengurus: {
         type: String,
         enum: ["PI", "BPH"],
@@ -22,11 +22,16 @@ const panitiaOKKSchema = new mongoose.Schema({
     },
     bidangTerkait: {
         type: String,
-        enum: [null, "PO", "VPO", "Sekretaris Umum", "Controller", "Treasurer", "Koordinator Acara", "Koordinator Mentor"] 
+        enum: ["PO", "VPO", "Sekretaris Umum", "Controller", "Treasurer", "Koordinator Acara", "Koordinator Mentor", 
+                ,"Koordinator bidang Acara", "Sarana dan Prasarana", "Operasional", "Materi dan Mentor", "Kreatif", "Relasi",
+            
+                "Project", "Sponsorship", "Kesekretariatan", "PSDM", "Acara Puncak", "Eksplorasi", "Transportasi dan Konsumsi", 
+                "Perizinan", "Logistik", "Keamanan", "Medis", "Media Informasi", "Kelembagaan", "Materi", "Mentor", 
+                "Media Partner", "IT dan Broadcast", "Dekorasi dan Wardrobe", "Visual Design dan Dokumentasi"]
     },
     jabatan: {
         type: String,
-        enum: [null, "Penanggung Jawab", "Wakil Penanggung Jawab"]
+        enum: ["PI", "Penanggung Jawab", "Wakil Penanggung Jawab", "Staff"]
     },
 })
 

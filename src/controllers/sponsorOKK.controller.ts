@@ -1,8 +1,8 @@
 import { Response } from "express";
-import makeProposalSponsorRequestBody from "../interfaces/RequestInterfaces/makeProposalSponsorRequestBody.interface";
+import makeProposalSponsorRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/makeProposalSponsorRequestBody.interface";
 import RequestWithPanitia from "../interfaces/RequestInterfaces/requestWithPanitia.interface";
 import RequestWithSponsor from "../interfaces/RequestInterfaces/requestWithSponsor.interface";
-import ResponDariSponsorRequestBody from "../interfaces/RequestInterfaces/responDariSponsorRequestBody.interface";
+import ResponDariSponsorRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/responDariSponsorRequestBody.interface";
 import AcaraOKKModel from "../models/acaraOKK.model";
 import ProposalSponsorOKKModel from "../models/proposalSponsorOKK.model";
 import SponsorOKKModel from "../models/sponsorOKK.model";

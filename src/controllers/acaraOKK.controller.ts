@@ -1,4 +1,4 @@
-import MakeAcaraRequestBody from "../interfaces/RequestInterfaces/makeAcaraRequestBody.interface";
+import MakeAcaraRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/makeAcaraRequestBody.interface";
 import RequestWithPanitia from "../interfaces/RequestInterfaces/requestWithPanitia.interface";
 import AcaraOKKModel from "../models/acaraOKK.model";
 import { Response } from "express";

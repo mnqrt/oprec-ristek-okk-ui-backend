@@ -17,11 +17,11 @@ Penjelasan:
 ulang step 3-4 SELAMA statusProposal !== "Diterima Panitia" dan statusProposal !== "Ditolak Pembicara"
 */
 import { Response } from "express";
-import AccOrDeclinemateriPembicaraRequestBody from "../interfaces/RequestInterfaces/accOrDeclinemateriPembicaraRequestBody.interface";
-import makeProposalPembicaraRequestBody from "../interfaces/RequestInterfaces/makeProposalPembicaraRequestBody.interface";
+import AccOrDeclinemateriPembicaraRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/accOrDeclinemateriPembicaraRequestBody.interface";
+import makeProposalPembicaraRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/makeProposalPembicaraRequestBody.interface";
 import RequestWithPanitia from "../interfaces/RequestInterfaces/requestWithPanitia.interface";
 import RequestWithPembicara from "../interfaces/RequestInterfaces/requestWithPembicara.interface";
-import ResponProposalPembicaraRequestBody from "../interfaces/RequestInterfaces/responProposalPembicaraRequestBody.interface";
+import ResponProposalPembicaraRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/responProposalPembicaraRequestBody.interface";
 import AcaraOKKModel from "../models/acaraOKK.model";
 import PembicaraOKKModel from "../models/pembicaraOKK.model";
 import ProposalPembicaraOKKModel from "../models/proposalPembicaraOKK.model";

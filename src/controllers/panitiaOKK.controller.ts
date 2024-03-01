@@ -1,7 +1,7 @@
 // buat method sehingga panitia bisa bikin model rapatOKK beserta siapa aja yg ikut
 import { Response } from "express";
-import IsiAbsensiRapatRequestBody from "../interfaces/RequestInterfaces/IsiAbsensiRapatRequestBody.interface";
-import MakeRapatRequestBody from "../interfaces/RequestInterfaces/makeRapatRequestBody.interface";
+import IsiAbsensiRapatRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/IsiAbsensiRapatRequestBody.interface";
+import MakeRapatRequestBody from "../interfaces/RequestInterfaces/RequestBodyInterface/makeRapatRequestBody.interface";
 import RequestWithPanitia from "../interfaces/RequestInterfaces/requestWithPanitia.interface";
 import MahasiswaModel from "../models/mahasiswa.model";
 import MeetingModel from "../models/meeting.model";
