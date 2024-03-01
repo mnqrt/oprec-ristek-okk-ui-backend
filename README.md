@@ -1,3 +1,10 @@
+# Getting started
+Setelah melakukan `git clone`, run 
+```
+npm i
+npm run dev
+```
+
 # Penjelasan Role
 - User: membutuhkan password, username, dan role
 - Mahasiswa: Memiliki userId, membutuhkan nama. Sedangkan Fakultas, Jurusan, Angkatan Opsional
@@ -60,17 +67,19 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
     3. Panitia lainnya mengisi absensi dengan `PATCH /rapat/isi-absensi-rapat` (beserta JSON Request Body).
 
 ## /acara
-| Route          | Method | Need to Login as | JSON Request Body        | Explanation        |
-| -------------- | ------ | ---------------- | ------------------------ | ------------------ |
-| /get-all-acara | GET    | Panitia          | - | - |
-| /create-acara  | POST   | Panitia          | {namaAcara, jadwalAcara}                      | Membuat sesi acara                 |
+| Route                    | Method | Need to Login as | JSON Request Body        | Explanation        |
+| ------------------------ | ------ | ---------------- | ------------------------ | ------------------ |
+| /get-all-acara           | GET    | Panitia          | {namaAcara, jadwalAcara} | Membuat sesi acara |
+| /create-acara            | POST   | Panitia          | \-                       | \-                 |
+| /delete-acara-by-id/{id} | DELETE | Panitia          | \-                       | \-                 |
 
 ## /sponsor
-| Route                     | Method | Need to Login as | JSON Request Body                          | Explanation                       |
-| ------------------------- | ------ | ---------------- | ------------------------------------------ | --------------------------------- |
-| /get-all-proposal-sponsor | GET    | Panitia          | \-                                         | \-                                |
-| /create-proposal-sponsor  | POST   | Panitia          | {acaraId, sponsorId}                       | Membuat proposal sponsor          |
-| /respon-proposal          | PATCH  | Sponsor          | {proposalSponsorId, statusProposal, paket} | Menerima/menolak proposal sponsor |
+| Route                               | Method | Need to Login as | JSON Request Body                          | Explanation                       |
+| ----------------------------------- | ------ | ---------------- | ------------------------------------------ | --------------------------------- |
+| /get-all-proposal-sponsor           | GET    | Panitia          | \-                                         | \-                                |
+| /create-proposal-sponsor            | POST   | Panitia          | {acaraId, sponsorId}                       | Membuat proposal sponsor          |
+| /respon-proposal                    | PATCH  | Sponsor          | {proposalSponsorId, statusProposal, paket} | Menerima/menolak proposal sponsor |
+| /delete-proposal-sponsor-by-id/{id} | DELETE | Panitia          | \-                                         | \-                                |
 
     1. Ketika panitia membuat proposal kepada pembicara, awalnya paket = null (karena paket dari sponsor), statusProposal = "Menunggu Konfirmasi Sponsor"
     2. Sponsor yang mendapatkan proposal memiliki 2 pilihan:
@@ -82,13 +91,14 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
     Note: Untuk membuat proposalSponsor; Panitia perlu untuk membuat acara, kemudian `GET /acara/get-all-acara` untuk mendapatkan acaraId (pada `_id`), perlu juga untuk `GET /auth/get-all-sponsor` untuk mendapatkan sponsorId (pada `_id`)
 
 ## /pembicara 
-| Route                       | Method | Need to Login as | JSON Request Body                             | Explanation                            |
-| --------------------------- | ------ | ---------------- | --------------------------------------------- | -------------------------------------- |
-| /get-all-proposal-pembicara | GET    | Panitia          | \-                                            | \-                                     |
-| /create-proposal-pembicara  | POST   | Panitia          | {acaraId, pembicaraId}                        | Membuat proposal pembicara             |
-| /respon-proposal-pembicara  | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Menerima/menolak proposal pembicara    |
-| /accept-or-decline-materi   | PATCH  | Panitia          | {proposalPembicaraId, statusProposal}         | Menerima/menolak materi dari pembicara |
-| /respond-to-declined-materi | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Membuat materi baru/menolak proposal   |
+| Route                                 | Method | Need to Login as | JSON Request Body                             | Explanation                            |
+| ------------------------------------- | ------ | ---------------- | --------------------------------------------- | -------------------------------------- |
+| /get-all-proposal-pembicara           | GET    | Panitia          | \-                                            | \-                                     |
+| /create-proposal-pembicara            | POST   | Panitia          | {acaraId, pembicaraId}                        | Membuat proposal pembicara             |
+| /respon-proposal-pembicara            | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Menerima/menolak proposal pembicara    |
+| /accept-or-decline-materi             | PATCH  | Panitia          | {proposalPembicaraId, statusProposal}         | Menerima/menolak materi dari pembicara |
+| /respond-to-declined-materi           | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Membuat materi baru/menolak proposal   |
+| /delete-proposal-pembicara-by-id/{id} | DELETE | Panitia          | \-                                            | \-                                     |
 
     1. Ketika panitia membuat proposal kepada pembicara, awalnya materiProposal = null (karena materi dari pembicara), status proposal = "Menunggu Konfirmasi Pembicara"
     2. Pembicara yang mendapatkan proposal memiliki 2 pilihan:
@@ -106,3 +116,8 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
     ulang step 3-4 SELAMA statusProposal !== "Diterima Panitia" dan statusProposal !== "Ditolak Pembicara"
 
     Note: Untuk membuat proposalPembicara; Panitia perlu untuk membuat acara, kemudian `GET /acara/get-all-acara` untuk mendapatkan acaraId (pada `_id`), perlu juga untuk `GET /auth/get-all-pembicara` untuk mendapatkan pembicaraId (pada `_id`)
+
+
+# Server error ketika melakukan request pada front-end, apa yang harus saya lakukan?
+    Ctrl/Cmd + c
+    npm run dev
