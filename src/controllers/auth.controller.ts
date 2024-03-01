@@ -90,6 +90,15 @@ const register = async (req: Request, res: Response) => {
                 if (tipePengurus === "PI" && ! BIDANG_PI.includes(bidangTerkait)) return res.status(403).send("bidangTerkait tidak ada di PI")
                 if (tipePengurus === "BPH" && ! BIDANG_BPH.includes(bidangTerkait)) return res.status(403).send("bidangTerkait tidak ada di BPH")
 
+                if (tipePengurus === "BPH") {
+                    if (jabatan === "Penanggung Jawab" &&
+                        await PanitiaOKKModel.countDocuments({ bidangTerkait, jabatan}) >= 1)   
+                            return res.status(403).send(`Banyak Penanggung Jawab pada bidang ${bidangTerkait} maksimal 1.`)
+                    if (jabatan === "Wakil Penanggung Jawab" &&
+                        await PanitiaOKKModel.countDocuments({ bidangTerkait, jabatan}) >= 2)
+                            return res.status(403).send(`Banyak Wakil Penanggung Jawab pada bidang ${bidangTerkait} maksimal 2.`)
+                }
+
                 const newPanitia = new PanitiaOKKModel({ userId, mahasiswaId, tipePengurus, bidangTerkait, jabatan })
                 await newPanitia.save()
             }
@@ -149,9 +158,11 @@ const login = async (req: Request, res: Response) => {
     }
 }
 
-const logout = async (req: RequestWithUser, res: Response) => {
+const logout = async (req: Request, res: Response) => {
     try {
+        console.log(req.cookies['REFRESH_TOKEN_USER'])
         await TokenModel.findOneAndDelete({ refreshToken: req.cookies['REFRESH_TOKEN_USER'] })
+        await TokenModel.deleteMany({})
         res.cookie("ACCESS_TOKEN_USER", "")
         res.cookie("REFRESH_TOKEN_USER", "")
         res.status(204).send("Berhasil logout")
@@ -182,9 +193,24 @@ const getAllPeserta = async (req: Request, res: Response) => {
         const allPeserta = await PesertaOKKModel.find({})
         const allPesertaWithMoreInfo = await Promise.all(allPeserta.map(async (peserta: PesertaOKK) => {
             const mahasiswaFromPeserta = await MahasiswaModel.findById(peserta.mahasiswaId)
-            return { dataMahasiswa: mahasiswaFromPeserta, dataMentor: peserta}
+            return { dataMahasiswa: mahasiswaFromPeserta, dataPeserta: peserta}
         }))
         return res.status(200).json(allPesertaWithMoreInfo)
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+const getAllPanitia = async (req: Request, res: Response) => {
+    try {
+        const allPanitia = await PanitiaOKKModel.find({})
+        const allPanitiaWithMoreInfo = await Promise.all(allPanitia.map(async (panitia: PanitiaOKK) => {
+            const mahasiswaFromPanitia = await MahasiswaModel.findById(panitia.mahasiswaId)
+            return { dataMahasiswa: mahasiswaFromPanitia, dataPanitia: panitia}
+        }))
+        return res.status(200).json(allPanitiaWithMoreInfo)
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -207,21 +233,6 @@ const getAllPembicara = async (req: Request, res: Response) => {
     try {
         const allPembicara = await PembicaraOKKModel.find({})
         return res.status(200).json(allPembicara)
-    }
-    catch (error: unknown) {
-        if (error instanceof Error) res.status(503).json({ message: error.message });
-        else res.sendStatus(500);
-    }
-}
-
-const getAllPanitia = async (req: Request, res: Response) => {
-    try {
-        const allPanitia = await PanitiaOKKModel.find({})
-        const allPanitiaWithMoreInfo = await Promise.all(allPanitia.map(async (panitia: PanitiaOKK) => {
-            const mahasiswaFromPanitia = await MahasiswaModel.findById(panitia.mahasiswaId)
-            return { dataMahasiswa: mahasiswaFromPanitia, dataMentor: panitia}
-        }))
-        return res.status(200).json(allPanitiaWithMoreInfo)
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -270,6 +281,7 @@ const deleteAll = async (req: Request, res: Response) => { //ONLY USE THIS WHEN 
         await PesertaOKKModel.deleteMany({})
         
         await RapatOKKModel.deleteMany({})
+        await MentoringOKKModel.deleteMany({})
         await UserModel.deleteMany({})
         res.sendStatus(204)
     }
