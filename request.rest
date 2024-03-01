@@ -1,123 +1,4 @@
-POST http://localhost:4000/auth/register
-Content-Type: application/json
-
-{
-    "username": "Bdy",
-    "password": "akuBudy",
-    "loginAs": "Peserta",
-    "nama": "Budyyono",
-    "fakultas": "Fasilkom",
-    "jurusan": "Ilmu Komputer",
-    "angkatan": 2022,
-    "jalurMasuk": "SIMAK",
-    "noKelompok": 169
-}
-
-###
-
-POST http://localhost:4000/auth/register
-Content-Type: application/json
-
-{
-    "username": "Shafa",
-    "password": "akuShafa",
-    "loginAs": "Mentor",
-    "nama": "Shafa Najmi",
-    "fakultas": "Fasilkom",
-    "jurusan": "Ilmu Komputer",
-    "angkatan": 2021,
-    "jalurMasuk": "SIMAK",
-    "noKelompok": 169
-}
-###
-POST http://localhost:4000/auth/register
-Content-Type: application/json
-
-{
-    "username": "Coda",
-    "password": "akuCoda",
-    "loginAs": "Mentor",
-    "nama": "Tsabit Code",
-    "fakultas": "Fasilkom",
-    "jurusan": "Ilmu Komputer",
-    "angkatan": 2022,
-    "jalurMasuk": "SIMAK",
-    "noKelompok": 180
-}
-
-###
-
-DELETE http://localhost:4000/auth/delete-all
-
-###
-POST http://localhost:4000/auth/login
-Content-Type: application/json
-
-{
-    "username": "Bdy",
-    "password": "akuBudy"
-}
-###
-GET http://localhost:4000/auth/get-all-mentor
-###
-GET http://localhost:4000/auth/get-all-peserta
-###
-POST http://localhost:4000/auth/login
-Content-Type: application/json
-
-{
-    "username": "Shafa",
-    "password": "akuShafa"
-}
-###
-DELETE http://localhost:4000/auth/delete-all-token
-###
-POST http://localhost:4000/mentoring/create-mentoring
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGRhMjYxYzlhZDUyMGEyMDdhYWJiMSIsImlhdCI6MTcwOTAyNDM2NCwiZXhwIjoxNzA5MDI1MjY0fQ.wJ96DflSnkgHlRPmHrvnNYRnUYW2n0snivM4DL7jNE4
-Content-Type: application/json
-
-{
-    "lokasiMentoring": "P2",
-    "passphraseAbsensi": "M2",
-    "materi": "Tes2"
-}
-###
-GET http://localhost:4000/mentoring/get-all-mentoring
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGRhMjYxYzlhZDUyMGEyMDdhYWJiMSIsImlhdCI6MTcwOTAyNDM2NCwiZXhwIjoxNzA5MDI1MjY0fQ.wJ96DflSnkgHlRPmHrvnNYRnUYW2n0snivM4DL7jNE4
-###
-DELETE http://localhost:4000/auth/delete-all-meeting
-###
-PATCH http://localhost:4000/mentoring/isi-absensi
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGRhMjVmYzlhZDUyMGEyMDdhYWJhYiIsImlhdCI6MTcwOTAyNDM5NSwiZXhwIjoxNzA5MDI1Mjk1fQ.kp8FhzJf8f_4KB6HdsmxsKLfymrHjJ1YNwp0el6iSKM
-Content-Type: application/json
-
-{
-    "mentoringId": "65dda474ca311b18ddd5097a",
-    "passphraseAbsensi": "M2"
-}
-###
-
-
-###
-POST http://localhost:4000/auth/register
-Content-Type: application/json
-
-{
-    "username": "addr",
-    "password": "akuAddr",
-    "loginAs": "Panitia",
-    "nama": "Adrian Hamzah",
-    "fakultas": "Fasilkom",
-    "jurusan": "Sistem Informasi",
-    "angkatan": 2022,
-    "tipePengurus": "PI",
-    "bidangTerkait": "Koordinator Mentor",
-    "jabatan": "Penanggung Jawab"
-}
-###
-POST http://localhost:4000/auth/register
-Content-Type: application/json
-
+Panitia:
 {
     "username": "cia",
     "password": "akuCia",
@@ -128,70 +9,88 @@ Content-Type: application/json
     "angkatan": 2023,
     "tipePengurus": "PI",
     "bidangTerkait": "Koordinator Mentor",
+    "jabatan": "Penanggung Jawab"
+}
+
+{
+    "username": "jojo",
+    "password": "akuJojo",
+    "loginAs": "Panitia",
+    "nama": "jojo12",
+    "fakultas": "Fasilkom",
+    "jurusan": "Ilmu Komputer",
+    "angkatan": 2022,
+    "tipePengurus": "PI",
+    "bidangTerkait": "Koordinator Mentor",
+    "jabatan": "Staff"
+}
+
+{
+    "username": "Eryaw",
+    "password": "akuEryaw",
+    "loginAs": "Panitia",
+    "nama": "Eryaw12443",
+    "fakultas": "Fasilkom",
+    "jurusan": "Ilmu Komputer",
+    "angkatan": 2021,
+    "tipePengurus": "PI",
+    "bidangTerkait": "Koordinator Mentor",
     "jabatan": "Wakil Penanggung Jawab"
 }
-###
-GET http://localhost:4000/auth/get-all-panitia
-###
-POST http://localhost:4000/auth/login
-Content-Type: application/json
+
+Peserta:
 
 {
-    "username": "addr",
-    "password": "akuAddr"
+    "username": "budy",
+    "password": "akuBudy",
+    "loginAs": "Peserta",
+    "nama": "Budyyono",
+    "fakultas": "Fasilkom",
+    "jurusan": "Sastra Jawa",
+    "angkatan": 2024,
+    "jalurMasuk": "SIMAK",
+    "noKelompok": 169
 }
-###
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDM0MjNlMDU4YjQ1ZDMzNTVjMSIsImlhdCI6MTcwOTA1MzA1NCwiZXhwIjoxNzA5MDUzOTU0fQ.9mZn2y92qqgrw4s7osSKMgdWHjbxu5Yl1LHk5NJysfI
-POST http://localhost:4000/rapat/create-rapat
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDM0MjNlMDU4YjQ1ZDMzNTVjMSIsImlhdCI6MTcwOTA1MzA1NCwiZXhwIjoxNzA5MDUzOTU0fQ.9mZn2y92qqgrw4s7osSKMgdWHjbxu5Yl1LHk5NJysfI
-Content-Type: application/json
 
 {
-    "lokasiRapat": "Balgebun",
-    "kesimpulanRapat": "Coblos No 5",
-    "passphraseAbsensi": "FirstRapat"
+    "username": "heri",
+    "password": "akuHeri",
+    "loginAs": "Peserta",
+    "nama": "Herii",
+    "fakultas": "Fasilkom",
+    "jurusan": "Sastra Korea",
+    "angkatan": 2024,
+    "jalurMasuk": "SIMAK",
+    "noKelompok": 169
 }
-###
-GET http://localhost:4000/rapat/get-all-rapat
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDM0MjNlMDU4YjQ1ZDMzNTVjMSIsImlhdCI6MTcwOTA1MzA1NCwiZXhwIjoxNzA5MDUzOTU0fQ.9mZn2y92qqgrw4s7osSKMgdWHjbxu5Yl1LHk5NJysfI
-//65de150d23e058b45d3355d8
-###
-POST http://localhost:4000/auth/login
-Content-Type: application/json
 
 {
-    "username": "cia",
-    "password": "akuCia"
+    "username": "andy",
+    "password": "akuAndy",
+    "loginAs": "Peserta",
+    "nama": "Andyyono",
+    "fakultas": "Fasilkom",
+    "jurusan": "Sastra Jepang",
+    "angkatan": 2024,
+    "jalurMasuk": "SIMAK",
+    "noKelompok": 109
 }
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTA1MzI2MiwiZXhwIjoxNzA5MDU0MTYyfQ.y-mqyFfzQ04VgtProSmsfBomXI4ZPZiEJCSPnUg5r34
-###
-PATCH http://localhost:4000/rapat/isi-absensi-rapat
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTA1MzI2MiwiZXhwIjoxNzA5MDU0MTYyfQ.y-mqyFfzQ04VgtProSmsfBomXI4ZPZiEJCSPnUg5r34
-Content-Type: application/json
+
+Mentor:
 
 {
-    "rapatId": "65de150d23e058b45d3355d8",
-    "passphraseAbsensi": "FirstRapat"
+    "username": "shafa",
+    "password": "akuShafa",
+    "loginAs": "Mentor",
+    "nama": "Shafa Najmi",
+    "fakultas": "Fasilkom",
+    "jurusan": "Ilmu Komputer",
+    "angkatan": 2021,
+    "jalurMasuk": "SIMAK",
+    "noKelompok": 169
 }
 
-###
-POST http://localhost:4000/acara/create-acara
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjQwNiwiZXhwIjoxNzA5MTMzMzA2fQ.KZWYoHOSoAhvwApx9efUmjQnL77VP-W4odjaxR77--M
-Content-Type: application/json
-
-{
-    "namaAcara": "Pembukaan OKK 2024 Hore",
-    "jadwalAcara": "2024-09-20"
-}
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNTc1OCwiZXhwIjoxNzA5MTA2NjU4fQ.yo24S3_DJ7r2F8PB-C6gWCB6bfWaABkHnwwj1OXwvgU
-//acaraId: 65dee269019b79aefbf22acf
-###
-GET http://localhost:4000/acara/get-all-acara
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNTc1OCwiZXhwIjoxNzA5MTA2NjU4fQ.yo24S3_DJ7r2F8PB-C6gWCB6bfWaABkHnwwj1OXwvgU
-###
-POST http://localhost:4000/auth/register
-Content-Type: application/json
+Sponsor:
 
 {
     "username": "aqua",
@@ -199,73 +98,15 @@ Content-Type: application/json
     "loginAs": "Sponsor",
     "namaSponsor": "Aqua enak"
 }
-###
-GET http://localhost:4000/auth/get-all-pembicara
-//sponsorId: 65dee318019b79aefbf22ad8
-//proposalSponsorId: 65dee4d685e9a541da7bb7b8
-###
-POST http://localhost:4000/sponsor/make-proposal-sponsor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNTc1OCwiZXhwIjoxNzA5MTA2NjU4fQ.yo24S3_DJ7r2F8PB-C6gWCB6bfWaABkHnwwj1OXwvgU
-Content-Type: application/json
 
 {
-    "acaraId": "65dee269019b79aefbf22acf",
-    "sponsorId": "65dee318019b79aefbf22ad8"
-}
-###
-GET http://localhost:4000/sponsor/get-all-proposal-pembicara
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUxNDRlMjNlMDU4YjQ1ZDMzNTVjNyIsImlhdCI6MTcwOTEwNjg5NiwiZXhwIjoxNzA5MTA3Nzk2fQ.ld2SEGS2yDJWQM0VyRtA1-CMcB7jvyrNrXSNbVVoOKo
-###
-POST http://localhost:4000/auth/login
-Content-Type: application/json
-
-{
-    "username": "aqua",
-    "password": "akuAqua"
-}
-###
-PATCH http://localhost:4000/sponsor/respon-proposal
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGVlNWYyMjI2NTUzM2E1M2RhZTZkMSIsImlhdCI6MTcwOTEwNzAzMywiZXhwIjoxNzA5MTA3OTMzfQ.u1Tr-dmGKJ1ZMEgx-Pmi_dvKQs_VZNBfC6G0X_xUsD4
-Content-Type: application/json
-
-{
-    "proposalSponsorId": "65dee4d685e9a541da7bb7b8",
-    "statusProposal": "Diterima: Platinum",
-    "paket": "Platinum"
+    "username": "vit",
+    "password": "akuVit",
+    "loginAs": "Sponsor",
+    "namaSponsor": "Vit gacor"
 }
 
-###
-DELETE http://localhost:4000/auth/delete-all-sponsor-pembicara-acara-proposal
-
-# {
-# 	"namaAcara": "Pembukaan OKK UI 2024",
-# 	"jadwalAcara": "2024-09-20T00:00:00.000Z",
-# 	"_id": "65df401b2b9b018e52fa0a97",
-# 	"listSponsorBesertaPaket": [],
-# 	"listPembicaraBesertaPaket": [],
-# 	"__v": 0
-# }
-# id sponsor: 65df3f716d4165ae70d4c0f6
-# {
-# 	"sponsorId": "65df3f716d4165ae70d4c0f6",
-# 	"acaraId": "65df401b2b9b018e52fa0a97",
-# 	"statusProposal": "Menunggu Konfirmasi Sponsor",
-# 	"_id": "65df40ec655e141792154d8a",
-# 	"__v": 0
-# }
-###
-POST http://localhost:4000/auth/register
-Content-Type: application/json
-
-{
-    "username": "andy",
-    "password": "akuAndy",
-    "loginAs": "Pembicara",
-    "namaPembicara": "Andy Shihab"
-}
-###
-POST http://localhost:4000/auth/register
-Content-Type: application/json
+Pembicara:
 
 {
     "username": "najwa",
@@ -273,80 +114,10 @@ Content-Type: application/json
     "loginAs": "Pembicara",
     "namaPembicara": "Najwa Shihab"
 }
-###
-GET http://localhost:4000/auth/get-all-pembicara
-# {
-# 	"pembicaraId": "65df4422cc69275f58dbce7e",
-# 	"acaraId": "65df401b2b9b018e52fa0a97",
-# 	"statusProposal": "Menunggu Konfirmasi Pembicara",
-# 	"_id": "65df45a51ca49167b88a83ff",
-# 	"__v": 0
-# }
-
-
-
-# acaraId: 65df4a9c158c2da7c8f2e79e
-
-# {
-# 	"_id": "65df4a9c158c2da7c8f2e79e",
-# 	"namaAcara": "Pembukaan OKK 2024 Hore",
-# 	"jadwalAcara": "2024-09-20T00:00:00.000Z",
-# 	"listSponsorBesertaPaket": [],
-# 	"listPembicaraBesertaPaket": [],
-# 	"__v": 0
-# },
-
-
-###
-POST http://localhost:4000/pembicara/create-proposal-pembicara 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjU0MSwiZXhwIjoxNzA5MTMzNDQxfQ.Ni7hswmd-wgpzue9FO26nygXf_WYxRBk5a8v9RHtxpg
-Content-Type: application/json
 
 {
-	"acaraId": "65df4a9c158c2da7c8f2e79e",
-	"pembicaraId": "65df4aca158c2da7c8f2e7a2"
+    "username": "deddy",
+    "password": "akuDeddy",
+    "loginAs": "Pembicara",
+    "namaPembicara": "Deddy Corbuzier"
 }
-###
-GET http://localhost:4000/pembicara/get-all-proposal-pembicara
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjU0MSwiZXhwIjoxNzA5MTMzNDQxfQ.Ni7hswmd-wgpzue9FO26nygXf_WYxRBk5a8v9RHtxpg
-#65df4bb5158c2da7c8f2e7b7
-###
-POST http://localhost:4000/auth/login
-Content-Type: application/json
-
-{
-    "username": "andy",
-    "password": "akuAndy"
-}
-###
-POST http://localhost:4000/pembicara/create-proposal-pembicara 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMjU0MSwiZXhwIjoxNzA5MTMzNDQxfQ.Ni7hswmd-wgpzue9FO26nygXf_WYxRBk5a8v9RHtxpg
-###
-PATCH http://localhost:4000/pembicara/respon-proposal-pembicara
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTNmMTU4YzJkYTdjOGYyZTc5MyIsImlhdCI6MTcwOTEzMzQ1MiwiZXhwIjoxNzA5MTM0MzUyfQ.R-XcNtXOC7TxxWhdqYOc9O0p2S0uzbASI5ojIVxhyLo
-Content-Type: application/json
-
-{
-    "proposalPembicaraId": "65df4bb5158c2da7c8f2e7b7",
-    "statusProposal": "Diterima Pembicara (Menunggu Konfirmasi Panitia)",
-    "materi": "Ayam"
-}
-###
-POST http://localhost:4000/auth/login
-Content-Type: application/json
-
-{
-    "username": "cia",
-    "password": "akuCia"
-}
-###
-PATCH http://localhost:4000/pembicara/accept-or-decline-materi
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0YTM4MTU4YzJkYTdjOGYyZTc4ZCIsImlhdCI6MTcwOTEzMzY0NiwiZXhwIjoxNzA5MTM0NTQ2fQ.5h1fV_-MsrotfxnxYnkmx0QLstZH_K24sUxaNCcnsCA
-Content-Type: application/json
-
-{
-    "proposalPembicaraId": "65df4bb5158c2da7c8f2e7b7",
-    "statusProposal": "Diterima Panitia"
-}
-
-65df52d97c4eba5c117e9a9d
