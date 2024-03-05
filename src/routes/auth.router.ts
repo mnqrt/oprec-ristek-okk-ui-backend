@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { register, login, logout, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAll } from '../controllers/auth.controller'
+import { register, login, logout, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAll, changePassword } from '../controllers/auth.controller'
 import { authenticatePanitia, authenticateUser } from '../middlewares/auth.middleware'
 
 const authRouter: Router = Router()
@@ -12,6 +12,8 @@ authRouter.get('/get-all-pembicara', getAllPembicara)
 
 authRouter.post('/register', register)
 authRouter.post('/login', login)
+
+authRouter.patch('/change-password', authenticateUser, changePassword)
 
 authRouter.delete('/logout', logout)
 authRouter.delete('/delete-all-token', deleteAllToken)

@@ -25,6 +25,7 @@ import AcaraOKKModel from '../models/acaraOKK.model'
 import ProposalSponsorOKKModel from '../models/proposalSponsorOKK.model'
 import ProposalPembicaraOKKModel from '../models/proposalPembicaraOKK.model'
 import RequestWithUser from '../interfaces/RequestInterfaces/requestWithUser.interface'
+import ChangePasswordRequestBody from '../interfaces/RequestInterfaces/RequestBodyInterface/changePasswordRequestBody.interface'
 
 dotenv.config()
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
@@ -137,7 +138,7 @@ const login = async (req: Request, res: Response) => {
     try {
         if (! username || ! password) return res.status(404).send("username dan password tidak boleh kosong!")
         const user = await UserModel.findOne({ username })
-        if (! user) return res.status(404).send(`tidak ditemukan user dengan username ${user}`)
+        if (! user) return res.status(404).send(`tidak ditemukan user dengan username ${username}`)
         if (! (await bcrypt.compare(password, user.password))) return res.status(401).send("password tidak sesuai!")
 
         const userIdObject = { id: user._id }
@@ -166,6 +167,22 @@ const logout = async (req: Request, res: Response) => {
         res.cookie("ACCESS_TOKEN_USER", "")
         res.cookie("REFRESH_TOKEN_USER", "")
         res.status(204).send("Berhasil logout")
+    }
+    catch (error: unknown) {
+        if (error instanceof Error) res.status(503).json({ message: error.message });
+        else res.sendStatus(500);
+    }
+}
+
+const changePassword = async (req: RequestWithUser, res: Response) => {
+    const { password, newPassword }: ChangePasswordRequestBody = req.body as ChangePasswordRequestBody
+    try {
+        const user = await UserModel.findById(req.user._id)
+        if (! user) return res.sendStatus(404)
+        if (! (await bcrypt.compare(password, user.password))) return res.status(401).send("password tidak sesuai!")
+        user.password = await bcrypt.hash(newPassword, 10)
+        await user.save()
+        res.status(204).send("Password berhasil diubah!")
     }
     catch (error: unknown) {
         if (error instanceof Error) res.status(503).json({ message: error.message });
@@ -316,4 +333,4 @@ const generateToken = async (req: Request, res: Response) => {
     }
 }
 
-export { register, login, logout, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAll }
+export { register, login, logout, changePassword, generateToken, deleteAllToken, getAllMentor, getAllPeserta, getAllPanitia, deleteAllMeeting, getAllSponsor, getAllPembicara, deleteAll }
