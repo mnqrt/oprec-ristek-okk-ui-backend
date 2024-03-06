@@ -71,10 +71,10 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 ## /sponsor
 | Route                               | Method | Need to Login as | JSON Request Body                          | Explanation                       |
 | ----------------------------------- | ------ | ---------------- | ------------------------------------------ | --------------------------------- |
-| /get-all-proposal-sponsor           | GET    | Panitia          | \-                                         | \-                                |
-| /create-proposal-sponsor            | POST   | Panitia          | {acaraId, sponsorId}                       | Membuat proposal sponsor          |
-| /respon-proposal                    | PATCH  | Sponsor          | {proposalSponsorId, statusProposal, paket} | Menerima/menolak proposal sponsor |
-| /delete-proposal-sponsor-by-id/{id} | DELETE | Panitia          | \-                                         | \-                                |
+| /sponsor/get-all-proposal-sponsor           | GET    | Panitia          | \-                                         | \-                                |
+| /sponsor/create-proposal-sponsor            | POST   | Panitia          | {acaraId, sponsorId}                       | Membuat proposal sponsor          |
+| /sponsor/respon-proposal                    | PATCH  | Sponsor          | {proposalSponsorId, statusProposal, paket} | Menerima/menolak proposal sponsor |
+| /sponsor/delete-proposal-sponsor-by-id/{id} | DELETE | Panitia          | \-                                         | \-                                |
 
     1. Ketika panitia membuat proposal kepada pembicara, awalnya paket = null (karena paket dari sponsor), statusProposal = "Menunggu Konfirmasi Sponsor"
     2. Sponsor yang mendapatkan proposal memiliki 2 pilihan:
@@ -89,11 +89,11 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 | Route                                 | Method | Need to Login as | JSON Request Body                             | Explanation                            |
 | ------------------------------------- | ------ | ---------------- | --------------------------------------------- | -------------------------------------- |
 | /pembicara /get-all-proposal-pembicara           | GET    | Panitia          | \-                                            | \-                                     |
-| /pembicara /create-proposal-pembicara            | POST   | Panitia          | {acaraId, pembicaraId}                        | Membuat proposal pembicara             |
-| /pembicara /respon-proposal-pembicara            | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Menerima/menolak proposal pembicara    |
-| /pembicara /accept-or-decline-materi             | PATCH  | Panitia          | {proposalPembicaraId, statusProposal}         | Menerima/menolak materi dari pembicara |
-| /pembicara /respond-to-declined-materi           | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Membuat materi baru/menolak proposal   |
-| /pembicara /delete-proposal-pembicara-by-id/{id} | DELETE | Panitia          | \-                                            | \-                                     |
+| /pembicara/create-proposal-pembicara            | POST   | Panitia          | {acaraId, pembicaraId}                        | Membuat proposal pembicara             |
+| /pembicara/respon-proposal-pembicara            | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Menerima/menolak proposal pembicara    |
+| /pembicara/accept-or-decline-materi             | PATCH  | Panitia          | {proposalPembicaraId, statusProposal}         | Menerima/menolak materi dari pembicara |
+| /pembicara/respond-to-declined-materi           | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Membuat materi baru/menolak proposal   |
+| /pembicara/delete-proposal-pembicara-by-id/{id} | DELETE | Panitia          | \-                                            | \-                                     |
 
     1. Ketika panitia membuat proposal kepada pembicara, awalnya materiProposal = null (karena materi dari pembicara), status proposal = "Menunggu Konfirmasi Pembicara"
     2. Pembicara yang mendapatkan proposal memiliki 2 pilihan:
