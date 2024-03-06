@@ -110,8 +110,3 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
     ulang step 3-4 SELAMA statusProposal !== "Diterima Panitia" dan statusProposal !== "Ditolak Pembicara"
 
     Note: Untuk membuat proposalPembicara; Panitia perlu untuk membuat acara, kemudian `GET /acara/get-all-acara` untuk mendapatkan acaraId (pada `_id`), perlu juga untuk `GET /auth/get-all-pembicara` untuk mendapatkan pembicaraId (pada `_id`)
-
-
-# Server error ketika melakukan request pada front-end, apa yang harus saya lakukan?
-    Ctrl/Cmd + c
-    npm run dev

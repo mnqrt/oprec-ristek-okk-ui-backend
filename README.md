@@ -16,3 +16,8 @@ Anda dapat mengakses penjelasan secara detail pada setiap routes melalui [link i
 - Untuk memasukkan sponsor ke acara, panitia dapat mengirimkan proposal sponsor kepada sang sponsor. Kemudian, sponsor dapat menerima proposal (kemudian sponsor akan dimasukan kedalam listSponsor pada acara) beserta paket yang dipilih. Jika sponsor menolak, maka proposal akan berakhir. (Proposal tidak otomatis dihapus agar panitia dapat melihat riwayat proposal)
 
 - Untuk memasukkan Pembicara ke acara, panitia dapat mengirimkan proposal pembicara kepada sang pembicara. Kemudian, pembicara dapat menerima proposal sekaligus mengajukan materi yang akan disampaikan (Jika pembicara menolak, proposal akan berakhir). Setelahnya, apabila materi diterima oleh panitia, maka pembicara akan dimasukan kedalam listPembicara pada acara. Namun jika tidak, pembicara dapat mengajukan materi lagi atau dapat menolak proposal. (Proposal tidak otomatis dihapus agar panitia dapat melihat riwayat proposal)
+
+
+# Server error ketika melakukan request pada front-end, apa yang harus saya lakukan?
+    Ctrl/Cmd + c
+    npm run dev
