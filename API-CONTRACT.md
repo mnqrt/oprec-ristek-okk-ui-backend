@@ -6,6 +6,7 @@
 - MentorOKK: Memiliki userId dan mahasiswaId, membutuhkan noKelompok
 - SponsorOKK: Memiliki userId. Membutuhkan namaSponsor serta listAcaraDisponsori (awalnya kosong)
 - PembicaraOKK: Memiliki userId. Membutuhkan namaPembicara serta listAcaraDiisi (awalnya kosong)
+
 Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 1 dan 2 adalah untuk meminimalisir pengulangan atribut/properti yang sama pada role berbeda
 
 
@@ -22,27 +23,27 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 ## /auth 
 | Route                   | Method | Need to Login as | JSON Request Body    | Explanation                             |
 | ----------------------- | ------ | ---------------- | -------------------- | --------------------------------------- |
-| auth/get-all-peserta    | GET    | \-               | \-                   | \-                                      |
-| auth/get-all-mentor     | GET    | \-               | \-                   | \-                                      |
-| auth/get-all-panitia    | GET    | \-               | \-                   | \-                                      |
-| auth/get-all-sponsor    | GET    | \-               | \-                   | \-                                      |
-| auth/get-all-pembicara  | GET    | \-               | \-                   | \-                                      |
-| auth/register           | POST   | \-               | Sudah dijelaskan.    | \-                                      |
-| auth/login              | POST   | \-               | {username, password} | \-                                      |
-| auth/change-password    | PATCH  | User             |                      |                                         |
-| auth/logout             | DELETE | User             | \-                   | \-                                      |
-| auth/delete-all-token   | DELETE | \-               | \-                   | Gunakan ini jika autentikasi bermasalah |
-| auth/delete-all-meeting | DELETE | \-               | \-                   | Delete semua rapat dan mentoring        |
-| auth/delete-all         | DELETE | \-               | \-                   | Delete semua model                      |
+| /auth/get-all-peserta    | GET    | \-               | \-                   | \-                                      |
+| /auth/get-all-mentor     | GET    | \-               | \-                   | \-                                      |
+| /auth/get-all-panitia    | GET    | \-               | \-                   | \-                                      |
+| /auth/get-all-sponsor    | GET    | \-               | \-                   | \-                                      |
+| /auth/get-all-pembicara  | GET    | \-               | \-                   | \-                                      |
+| /auth/register           | POST   | \-               | Sudah dijelaskan.    | \-                                      |
+| /auth/login              | POST   | \-               | {username, password} | \-                                      |
+| /auth/change-password    | PATCH  | User             |                      |                                         |
+| /auth/logout             | DELETE | User             | \-                   | \-                                      |
+| /auth/delete-all-token   | DELETE | \-               | \-                   | Gunakan ini jika autentikasi bermasalah |
+| /auth/delete-all-meeting | DELETE | \-               | \-                   | Delete semua rapat dan mentoring        |
+| /auth/delete-all         | DELETE | \-               | \-                   | Delete semua model                      |
 
 ## /mentoring 
 | Route                        | Method | Need to Login as | JSON Request Body                            | Explanation                                              |
 | ---------------------------- | ------ | ---------------- | -------------------------------------------- | -------------------------------------------------------- |
-| /get-all-mentoring-by-mentor | GET    | Mentor           | \-                                           | Return semua mentoring yang diadakan mentor tersebut     |
-| /get-all-mentoring           | GET    | Panitia          | \-                                           | Return semua mentoring                                   |
-| /create-mentoring            | POST   | Mentor           | {lokasiMentoring, materi, passphraseAbsensi} | Membuat sesi mentoring                                   |
-| /isi-absensi-mentoring       | PATCH  | Peserta          | {mentoringId, passphraseAbsensi}             | Mengisi absensi untuk mentoring, noKelompok harus sesuai |
-| /delete-mentoring-by-id/{id} | DELETE | Mentor           | \-                                           | \-                                                       |
+| /mentoring/get-all-mentoring-by-mentor | GET    | Mentor           | \-                                           | Return semua mentoring yang diadakan mentor tersebut     |
+| /mentoring/get-all-mentoring           | GET    | Panitia          | \-                                           | Return semua mentoring                                   |
+| /mentoring/create-mentoring            | POST   | Mentor           | {lokasiMentoring, materi, passphraseAbsensi} | Membuat sesi mentoring                                   |
+| /mentoring/isi-absensi-mentoring       | PATCH  | Peserta          | {mentoringId, passphraseAbsensi}             | Mengisi absensi untuk mentoring, noKelompok harus sesuai |
+| /mentoring/delete-mentoring-by-id/{id} | DELETE | Mentor           | \-                                           | \-                                                       |
 
     1. Mentor membuat rapat dengan `POST /mentoring/create-mentoring` (beserta JSON Request Body).
     2. Mentor memberitahu passphraseAbsensi kepada Peserta mentoring.
@@ -51,10 +52,10 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 ## /rapat 
 | Route                    | Method | Need to Login as | JSON Request Body                                 | Explanation                     |
 | ------------------------ | ------ | ---------------- | ------------------------------------------------- | ------------------------------- |
-| /get-all-rapat           | GET    | Panitia          | \-                                                | \-                              |
-| /create-rapat            | POST   | Panitia          | {lokasiRapat, kesimpulanRapat, passphraseAbsensi} | Hanya dapat dibuat PJ/WaPJ              |
-| /isi-absensi-rapat       | PATCH  | Panitia          | {rapatId, passphraseAbsensi}                      | Hanya dapat diisi panitia dengan bidang sama |
-| /delete-rapat-by-id/{id} | DELETE | Panitia          | \-                                                | \-                              |
+| /mentoring/get-all-rapat           | GET    | Panitia          | \-                                                | \-                              |
+| /mentoring/create-rapat            | POST   | Panitia          | {lokasiRapat, kesimpulanRapat, passphraseAbsensi} | Hanya dapat dibuat PJ/WaPJ              |
+| /mentoring/isi-absensi-rapat       | PATCH  | Panitia          | {rapatId, passphraseAbsensi}                      | Hanya dapat diisi panitia dengan bidang sama |
+| /mentoring/delete-rapat-by-id/{id} | DELETE | Panitia          | \-                                                | \-                              |
 
     1. Panitia membuat rapat dengan `POST /rapat/create-rapat` (beserta JSON Request Body).
     2. Panitia memberitahu passphraseAbsensi kepada Panitia lainnya.
@@ -63,9 +64,9 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 ## /acara
 | Route                    | Method | Need to Login as | JSON Request Body        | Explanation        |
 | ------------------------ | ------ | ---------------- | ------------------------ | ------------------ |
-| /get-all-acara           | GET    | Panitia          | {namaAcara, jadwalAcara} | Membuat sesi acara |
-| /create-acara            | POST   | Panitia          | \-                       | \-                 |
-| /delete-acara-by-id/{id} | DELETE | Panitia          | \-                       | \-                 |
+| /acara/get-all-acara           | GET    | Panitia          | {namaAcara, jadwalAcara} | Membuat sesi acara |
+| /acara/create-acara            | POST   | Panitia          | \-                       | \-                 |
+| /acara/delete-acara-by-id/{id} | DELETE | Panitia          | \-                       | \-                 |
 
 ## /sponsor
 | Route                               | Method | Need to Login as | JSON Request Body                          | Explanation                       |
@@ -87,12 +88,12 @@ Pada semua request, kita akan login sebagai poin 3-7 saja. Kegunaan adanya poin 
 ## /pembicara 
 | Route                                 | Method | Need to Login as | JSON Request Body                             | Explanation                            |
 | ------------------------------------- | ------ | ---------------- | --------------------------------------------- | -------------------------------------- |
-| /get-all-proposal-pembicara           | GET    | Panitia          | \-                                            | \-                                     |
-| /create-proposal-pembicara            | POST   | Panitia          | {acaraId, pembicaraId}                        | Membuat proposal pembicara             |
-| /respon-proposal-pembicara            | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Menerima/menolak proposal pembicara    |
-| /accept-or-decline-materi             | PATCH  | Panitia          | {proposalPembicaraId, statusProposal}         | Menerima/menolak materi dari pembicara |
-| /respond-to-declined-materi           | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Membuat materi baru/menolak proposal   |
-| /delete-proposal-pembicara-by-id/{id} | DELETE | Panitia          | \-                                            | \-                                     |
+| /pembicara /get-all-proposal-pembicara           | GET    | Panitia          | \-                                            | \-                                     |
+| /pembicara /create-proposal-pembicara            | POST   | Panitia          | {acaraId, pembicaraId}                        | Membuat proposal pembicara             |
+| /pembicara /respon-proposal-pembicara            | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Menerima/menolak proposal pembicara    |
+| /pembicara /accept-or-decline-materi             | PATCH  | Panitia          | {proposalPembicaraId, statusProposal}         | Menerima/menolak materi dari pembicara |
+| /pembicara /respond-to-declined-materi           | PATCH  | Pembicara        | {proposalPembicaraId, statusProposal, materi} | Membuat materi baru/menolak proposal   |
+| /pembicara /delete-proposal-pembicara-by-id/{id} | DELETE | Panitia          | \-                                            | \-                                     |
 
     1. Ketika panitia membuat proposal kepada pembicara, awalnya materiProposal = null (karena materi dari pembicara), status proposal = "Menunggu Konfirmasi Pembicara"
     2. Pembicara yang mendapatkan proposal memiliki 2 pilihan:
